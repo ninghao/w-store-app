@@ -2,13 +2,14 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "w-store-app",
 	"description": "",
-	"appid": "touristappid",
+	"appid": "wx5787d621c8d4f0f3",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"condition": {}

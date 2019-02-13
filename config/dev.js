@@ -3,7 +3,7 @@ module.exports = {
     NODE_ENV: '"development"'
   },
   defineConstants: {
-    API_WS: '"http://localhost:3333"'
+    API_WS: '"https://w-store.ninghao.net"'
   },
   weapp: {},
   h5: {}

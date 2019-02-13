@@ -38,6 +38,14 @@ class Index extends Component {
 
   componentDidHide () { }
 
+  async componentWillMount() {
+    const response = await Taro.request({
+      url: `${ API_WS }/products`
+    })
+
+    console.log(response)
+  }
+
   render () {
     return (
       <View className='index'>

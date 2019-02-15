@@ -21,6 +21,8 @@ class App extends Component {
   config = {
     pages: [
       'pages/shop/index',
+      'pages/shop/cart',
+      'pages/user/profile',
       'pages/index/index'
     ],
     window: {

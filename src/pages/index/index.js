@@ -12,13 +12,13 @@ import './index.scss'
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
-  add () {
+  add() {
     dispatch(add())
   },
-  dec () {
+  dec() {
     dispatch(minus())
   },
-  asyncAdd () {
+  asyncAdd() {
     dispatch(asyncAdd())
   }
 }))
@@ -32,19 +32,19 @@ class Index extends Component {
     products: []
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
   async componentWillMount() {
     const response = await Taro.request({
-      url: `${ API_WS }/products`
+      url: `${API_WS}/products`
     })
 
     this.setState({
@@ -54,20 +54,21 @@ class Index extends Component {
     console.log(response)
   }
 
-  render () {
+  render() {
     const { products } = this.state
-    
+
     return (
       <View className='index'>
         <AtList>
           {
             products.map(product =>
               <AtListItem
-                key={ product.id }
+                key={product.id}
                 arrow='right'
-                thumb={ product.images[0].src }
-                title={ product.name }
-                note={ '￥' + product.price } />
+                thumb={product.images[0].src}
+                title={product.name}
+                note={'￥' + product.price}
+              />
             )
           }
         </AtList>

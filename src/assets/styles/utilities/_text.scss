@@ -1,0 +1,13 @@
+.text {
+  &-center {
+    text-align: center !important;
+  }
+
+  &-through {
+    text-decoration: line-through !important;
+  }
+
+  &-muted {
+    color: $color-grey-1 !important;
+  }
+}

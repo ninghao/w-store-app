@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import SearchBar from '../../components/search-bar'
 
 class ShopIndex extends Component {
@@ -30,7 +30,19 @@ class ShopIndex extends Component {
         <View className='p-3'>
           {
             products.map(product =>
-              <View key={product.id}>{product.name}</View>
+              <View key={product.id}>
+                <Image
+                  src={product.images[0].src}
+                  mode='aspectFit'
+                />
+                <View>
+                  <View>{product.name}</View>
+                  <View>
+                    {product.on_sale && <Text className='mr-2'>{'￥' + product.regular_price}</Text>}
+                    <Text>{'￥' + product.price}</Text>
+                  </View>
+                </View>
+              </View>
             )
           }
         </View>

@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image, Text } from '@tarojs/components'
+import { AtBadge } from 'taro-ui'
 import SearchBar from '../../components/search-bar'
 
 class ShopIndex extends Component {
@@ -37,7 +38,13 @@ class ShopIndex extends Component {
                   mode='aspectFit'
                 />
                 <View className='card-body text-center'>
-                  <View className='card-title mb-2'>{product.name}</View>
+                  <View className='card-title mb-2'>
+                    <View className='card-title-text'>
+                      {product.on_sale &&
+                        <AtBadge className='card-title-badge' value='sale' />}
+                      {product.name}
+                    </View>
+                  </View>
                   <View className='card-subtitle'>
                     {product.on_sale &&
                       <Text className='mr-2 text-muted text-through'>{'￥' + product.regular_price}</Text>}

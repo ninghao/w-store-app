@@ -7,6 +7,17 @@
   &-title {
     font-size: $font-size-xl;
     font-weight: bold;
+
+    &-text {
+      display: inline-block;
+      position: relative;
+    }
+
+    &-badge {
+      position: absolute;
+      right: -4px * $hd;
+      top: -4px * $hd;
+    }
   }
 
   &-subtitle {

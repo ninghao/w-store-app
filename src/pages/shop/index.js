@@ -28,6 +28,11 @@ class ShopIndex extends Component {
     return (
       <View>
         <SearchBar />
+        <View className='ui placeholder'>
+          <View className='image rectangular'></View>
+          <View className='line'></View>
+          <View className='very short line'></View>
+        </View>
         <ProductList data={products} />
       </View>
     )

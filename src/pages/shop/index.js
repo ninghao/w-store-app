@@ -19,6 +19,10 @@ class ShopIndex extends Component {
   }
 
   async componentWillMount() {
+    this.fetchData()
+  }
+
+  async fetchData() {
     const response = await Taro.request({
       url: `${API_WS}/products?_limit=${this.state.pageSize}&_page=${this.state.current}`
     })
@@ -42,6 +46,14 @@ class ShopIndex extends Component {
     }
   }
 
+  onPageChange({ current }) {
+    this.setState({
+      current
+    }, () => {
+      this.fetchData()
+    })
+  }
+
   render() {
     const { products, placeholder, total, pageSize, current } = this.state
 
@@ -56,6 +68,7 @@ class ShopIndex extends Component {
           pageSize={pageSize}
           current={current}
           className='my-4'
+          onPageChange={this.onPageChange.bind(this)}
         />
       </View>
     )

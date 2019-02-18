@@ -48,7 +48,8 @@ class ShopIndex extends Component {
 
   onPageChange({ current }) {
     this.setState({
-      current
+      current,
+      placeholder: true
     }, () => {
       this.fetchData()
     })
@@ -60,8 +61,8 @@ class ShopIndex extends Component {
     return (
       <View>
         <SearchBar />
-        <Placeholder className='m-3' quantity='10' show={placeholder} />
-        <ProductList data={products} />
+        <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
+        {!placeholder && <ProductList data={products} />}
         <AtPagination
           icon
           total={parseInt(total)}

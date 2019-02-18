@@ -9,7 +9,8 @@ class ShopIndex extends Component {
   }
 
   state = {
-    products: []
+    products: [],
+    placeholder: true,
   }
 
   async componentWillMount() {
@@ -17,22 +18,35 @@ class ShopIndex extends Component {
       url: `${API_WS}/products`
     })
 
-    this.setState({
-      products: response.data
-    })
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        this.setState({
+          products: response.data,
+          placeholder: false,
+        })
+      }, 2000)
+    } else {
+      this.setState({
+        products: response.data,
+        placeholder: false,
+      })
+    }
   }
 
   render() {
-    const { products } = this.state
+    const { products, placeholder } = this.state
 
     return (
       <View>
         <SearchBar />
-        <View className='ui placeholder'>
-          <View className='image rectangular'></View>
-          <View className='line'></View>
-          <View className='very short line'></View>
-        </View>
+        {
+          placeholder &&
+          <View className='ui placeholder'>
+            <View className='image rectangular'></View>
+            <View className='line'></View>
+            <View className='very short line'></View>
+          </View>
+        }
         <ProductList data={products} />
       </View>
     )

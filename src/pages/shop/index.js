@@ -4,8 +4,13 @@ import { AtPagination } from 'taro-ui'
 import SearchBar from '../../components/search-bar'
 import ProductList from '../../components/product-list'
 import Placeholder from '../../components/placeholder';
+import fetchData from '../../utilities/fetch-data'
 
 class ShopIndex extends Component {
+  constructor() {
+    this.fetchData = fetchData
+  }
+
   config = {
     navigationBarTitleText: 'W-Store'
   }
@@ -19,45 +24,30 @@ class ShopIndex extends Component {
     serviceError: false
   }
 
-  async componentWillMount() {
-    this.fetchData()
+  fetchDataSuccess(response) {
+    const { data, header } = response
+
+    this.setState({
+      products: data,
+      placeholder: false,
+      total: header['X-Total-Count']
+    })
   }
 
-  async fetchData() {
-    try {
-      const response = await Taro.request({
-        url: `${API_WS}/products?_limit=${this.state.pageSize}&_page=${this.state.current}`
-      })
+  fetchDataFail() {
+    this.setState({
+      serviceError: true
+    })
+  }
 
-      const { data, header, statusCode } = response
-
-      switch (statusCode) {
-        case 200:
-          if (process.env.NODE_ENV === 'development') {
-            setTimeout(() => {
-              this.setState({
-                products: data,
-                placeholder: false,
-                total: header['X-Total-Count']
-              })
-            }, 2000)
-          } else {
-            this.setState({
-              products: data,
-              placeholder: false,
-              total: header['X-Total-Count']
-            })
-          }
-          break;
-        default:
-          throw new Error('出问题了！')
-          break;
-      }
-    } catch (error) {
-      this.setState({
-        serviceError: true
-      })
-    }
+  async componentWillMount() {
+    this.fetchData({
+      resource: 'products',
+      page: this.state.current,
+      pageSize: this.state.pageSize,
+      success: this.fetchDataSuccess.bind(this),
+      fail: this.fetchDataFail.bind(this)
+    })
   }
 
   onPageChange({ current }) {
@@ -65,7 +55,13 @@ class ShopIndex extends Component {
       current,
       placeholder: true
     }, () => {
-      this.fetchData()
+      this.fetchData({
+        resource: 'products',
+        page: this.state.current,
+        pageSize: this.state.pageSize,
+        success: this.fetchDataSuccess.bind(this),
+        fail: this.fetchDataFail.bind(this)
+      })
     })
   }
 

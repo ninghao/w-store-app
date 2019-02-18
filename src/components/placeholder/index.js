@@ -6,6 +6,11 @@ class Placeholder extends Component {
     addGlobalClass: true
   }
 
+  static defaultProps = {
+    quantity: 1,
+    show: false,
+  }
+
   render() {
     const quantity = parseInt(this.props.quantity)
     const items = [...Array(quantity).keys()]

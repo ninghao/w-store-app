@@ -20,20 +20,24 @@ class ShopIndex extends Component {
 
   async componentWillMount() {
     const response = await Taro.request({
-      url: `${API_WS}/products`
+      url: `${API_WS}/products?_limit=${this.state.pageSize}&_page=${this.state.current}`
     })
+
+    const { data, header } = response
 
     if (process.env.NODE_ENV === 'development') {
       setTimeout(() => {
         this.setState({
-          products: response.data,
+          products: data,
           placeholder: false,
+          total: header['X-Total-Count']
         })
       }, 2000)
     } else {
       this.setState({
-        products: response.data,
+        products: data,
         placeholder: false,
+        total: header['X-Total-Count']
       })
     }
   }

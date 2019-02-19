@@ -131,7 +131,7 @@ class ShopIndex extends Component {
           onActionClick={this.onActionClickSearchBar.bind(this)}
           onConfirm={this.onConfirmSearchBar.bind(this)}
         />
-        {searching && <AtActivityIndicator content='搜索中...' mode='center' />}
+        {searching && <AtActivityIndicator className='position-absolute m-3' content='搜索中...' />}
         <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
         {!placeholder && <ProductList data={products} />}
         <AtPagination

@@ -137,14 +137,15 @@ class ShopIndex extends Component {
       <View>
         <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
         {!placeholder && <ProductList data={products} />}
-        <AtPagination
-          icon
-          total={parseInt(total)}
-          pageSize={pageSize}
-          current={current}
-          className='my-4'
-          onPageChange={this.onPageChange.bind(this)}
-        />
+        {total > pageSize &&
+          <AtPagination
+            icon
+            total={parseInt(total)}
+            pageSize={pageSize}
+            current={current}
+            className='my-4'
+            onPageChange={this.onPageChange.bind(this)}
+          />}
       </View>
     )
 

@@ -39,7 +39,7 @@ async function fetchData({
         }
         break;
       default:
-        throw new Error('出问题了！')
+        throw new Error('服务出现问题，请稍后再试。')
         break;
     }
   } catch (error) {

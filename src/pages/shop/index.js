@@ -24,7 +24,8 @@ class ShopIndex extends Component {
     current: 1,
     serviceError: false,
     search: '',
-    searching: false
+    searching: false,
+    errorPageMessage: ''
   }
 
   search(value = '') {
@@ -76,9 +77,10 @@ class ShopIndex extends Component {
     })
   }
 
-  fetchDataFail() {
+  fetchDataFail(error) {
     this.setState({
-      serviceError: true
+      serviceError: true,
+      errorPageMessage: error.message
     })
   }
 
@@ -125,13 +127,6 @@ class ShopIndex extends Component {
     const { products, placeholder, total, pageSize, current, serviceError, searching } = this.state
     const page = (
       <View>
-        <SearchBar
-          value={this.state.search}
-          onChange={this.onChangeSearchBar.bind(this)}
-          onActionClick={this.onActionClickSearchBar.bind(this)}
-          onConfirm={this.onConfirmSearchBar.bind(this)}
-        />
-        {searching && <AtActivityIndicator className='position-absolute m-3' content='搜索中...' />}
         <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
         {!placeholder && <ProductList data={products} />}
         <AtPagination
@@ -147,11 +142,18 @@ class ShopIndex extends Component {
 
     const errorPage = (
       <View className='page-demo'>
-        服务出现问题，请稍后再试。
+        {this.state.errorPageMessage}
       </View>
     )
     return (
       <View>
+        <SearchBar
+          value={this.state.search}
+          onChange={this.onChangeSearchBar.bind(this)}
+          onActionClick={this.onActionClickSearchBar.bind(this)}
+          onConfirm={this.onConfirmSearchBar.bind(this)}
+        />
+        {searching && <AtActivityIndicator className='position-absolute m-3' content='搜索中...' />}
         {serviceError ? errorPage : page}
       </View>
     )

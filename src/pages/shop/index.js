@@ -13,7 +13,9 @@ class ShopIndex extends Component {
   }
 
   config = {
-    navigationBarTitleText: 'W-Store'
+    navigationBarTitleText: 'W-Store',
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
   }
 
   state = {
@@ -26,6 +28,23 @@ class ShopIndex extends Component {
     search: '',
     searching: false,
     errorPageMessage: ''
+  }
+
+  onPullDownRefresh() {
+    this.setState({
+      serviceError: false,
+      current: 1
+    }, () => {
+      this.fetchData({
+        resource: 'products',
+        search: this.state.search,
+        page: this.state.current,
+        pageSize: this.state.pageSize,
+        success: this.fetchDataSuccess.bind(this),
+        fail: this.fetchDataFail.bind(this),
+        complete: this.fetchDataComplete.bind(this)
+      })
+    })
   }
 
   search(value = '') {
@@ -105,6 +124,8 @@ class ShopIndex extends Component {
         searching: false
       })
     }
+
+    Taro.stopPullDownRefresh()
   }
 
   async componentWillMount() {

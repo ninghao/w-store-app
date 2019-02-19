@@ -23,7 +23,11 @@ async function fetchData({
 
   try {
     const response = await Taro.request({
-      url
+      url,
+      fail(error) {
+        error.message = '服务出现问题，请稍后再试。'
+        fail(error)
+      }
     })
 
     const { statusCode } = response

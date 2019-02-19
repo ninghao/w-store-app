@@ -3,6 +3,7 @@ import buildUrl from 'build-url'
 
 async function fetchData({
   resource = '',
+  search = '',
   page = '',
   pageSize = '',
   success = () => { },
@@ -10,6 +11,7 @@ async function fetchData({
 }) {
   const queryParams = {}
 
+  if (search) queryParams.q = search
   if (page) queryParams._page = page
   if (pageSize) queryParams._limit = pageSize
 

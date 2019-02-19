@@ -25,18 +25,33 @@ class ShopIndex extends Component {
     search: ''
   }
 
+  search(value = '') {
+    this.fetchData({
+      resource: 'products',
+      search: value,
+      page: this.state.current,
+      pageSize: this.state.pageSize,
+      success: this.fetchDataSuccess.bind(this),
+      fail: this.fetchDataFail.bind(this)
+    })
+  }
+
   onChangeSearchBar(value) {
     console.log(value)
     this.setState({
       search: value
+    }, () => {
+      this.search(this.state.search)
     })
   }
 
   onActionClickSearchBar() {
+    this.search(this.state.search)
     console.log('action click search')
   }
 
   onConfirmSearchBar() {
+    this.search(this.state.search)
     console.log('confirm search')
   }
 

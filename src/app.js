@@ -23,7 +23,8 @@ class App extends Component {
       'pages/shop/index',
       'pages/shop/cart',
       'pages/user/profile',
-      'pages/index/index'
+      'pages/index/index',
+      'pages/product/show'
     ],
     window: {
       backgroundTextStyle: 'light',

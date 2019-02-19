@@ -153,12 +153,18 @@ class ShopIndex extends Component {
     })
   }
 
+  onClickListItem(id) {
+    Taro.navigateTo({
+      url: `/pages/product/show?id=${id}`
+    })
+  }
+
   render() {
     const { products, placeholder, total, pageSize, current, serviceError, searching } = this.state
     const page = (
       <View>
         <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
-        {!placeholder && <ProductList data={products} />}
+        {!placeholder && <ProductList data={products} onClickListItem={this.onClickListItem} />}
         {total > pageSize &&
           <AtPagination
             icon

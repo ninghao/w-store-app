@@ -11,7 +11,7 @@ class ProductListItem extends Component {
     const { data: product } = this.props
 
     return (
-      <View className='card mb-2'>
+      <View className='card mb-2' onClick={this.props.onClick}>
         <Image
           className='card-img-top'
           src={product.images[0].src}

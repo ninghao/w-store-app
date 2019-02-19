@@ -3,6 +3,7 @@ import buildUrl from 'build-url'
 
 async function fetchData({
   resource = '',
+  id = '',
   search = '',
   page = '',
   pageSize = '',
@@ -16,8 +17,10 @@ async function fetchData({
   if (page) queryParams._page = page
   if (pageSize) queryParams._limit = pageSize
 
+  const path = id ? `${resource}/${id}` : resource
+
   const url = buildUrl(API_WS, {
-    path: resource,
+    path,
     queryParams
   })
 

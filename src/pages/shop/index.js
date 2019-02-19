@@ -73,8 +73,16 @@ class ShopIndex extends Component {
     this.setState({
       products: data,
       placeholder: false,
+      serviceError: false,
       total: header['X-Total-Count']
     })
+
+    if (data.length === 0) {
+      this.setState({
+        serviceError: true,
+        errorPageMessage: '没有可以显示的内容。'
+      })
+    }
   }
 
   fetchDataFail(error) {

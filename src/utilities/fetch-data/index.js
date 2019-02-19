@@ -7,7 +7,8 @@ async function fetchData({
   page = '',
   pageSize = '',
   success = () => { },
-  fail = () => { }
+  fail = () => { },
+  complete = () => { }
 }) {
   const queryParams = {}
 
@@ -44,6 +45,8 @@ async function fetchData({
   } catch (error) {
     fail(error)
   }
+
+  complete()
 }
 
 export default fetchData

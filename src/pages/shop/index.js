@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtPagination } from 'taro-ui'
+import { AtPagination, AtActivityIndicator } from 'taro-ui'
 import _ from 'lodash'
 import SearchBar from '../../components/search-bar'
 import ProductList from '../../components/product-list'
@@ -23,11 +23,16 @@ class ShopIndex extends Component {
     pageSize: 2,
     current: 1,
     serviceError: false,
-    search: ''
+    search: '',
+    searching: false
   }
 
   search(value = '') {
     console.log(`搜索：${value}`)
+
+    this.setState({
+      searching: true
+    })
 
     this.fetchData({
       resource: 'products',
@@ -35,7 +40,8 @@ class ShopIndex extends Component {
       page: this.state.current,
       pageSize: this.state.pageSize,
       success: this.fetchDataSuccess.bind(this),
-      fail: this.fetchDataFail.bind(this)
+      fail: this.fetchDataFail.bind(this),
+      complete: this.fetchDataComplete.bind(this)
     })
   }
 
@@ -76,6 +82,20 @@ class ShopIndex extends Component {
     })
   }
 
+  fetchDataComplete() {
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        this.setState({
+          searching: false
+        })
+      }, 2000)
+    } else {
+      this.setState({
+        searching: false
+      })
+    }
+  }
+
   async componentWillMount() {
     this.fetchData({
       resource: 'products',
@@ -102,7 +122,7 @@ class ShopIndex extends Component {
   }
 
   render() {
-    const { products, placeholder, total, pageSize, current, serviceError } = this.state
+    const { products, placeholder, total, pageSize, current, serviceError, searching } = this.state
     const page = (
       <View>
         <SearchBar
@@ -111,6 +131,7 @@ class ShopIndex extends Component {
           onActionClick={this.onActionClickSearchBar.bind(this)}
           onConfirm={this.onConfirmSearchBar.bind(this)}
         />
+        {searching && <AtActivityIndicator content='搜索中...' mode='center' />}
         <Placeholder className='m-3' quantity={pageSize} show={placeholder} />
         {!placeholder && <ProductList data={products} />}
         <AtPagination

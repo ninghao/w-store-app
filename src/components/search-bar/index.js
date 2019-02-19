@@ -3,31 +3,14 @@ import { View } from '@tarojs/components'
 import { AtSearchBar } from 'taro-ui'
 
 class SearchBar extends Component {
-  state = {
-    value: ''
-  }
-
-  onChange(value) {
-    this.setState({
-      value
-    })
-  }
-
-  onActionClick() {
-    console.log(`搜索：${this.state.value}`)
-  }
-
-  onConfirm() {
-    console.log(`搜索：${this.state.value}`)
-  }
-
   render() {
     return (
       <View>
         <AtSearchBar
-          value={this.state.value}
-          onChange={this.onChange.bind(this)}
-          onActionClick={this.onActionClick.bind(this)}
+          value={this.props.value}
+          onChange={this.props.onChange}
+          onActionClick={this.props.onActionClick}
+          onConfirm={this.props.onConfirm}
         />
       </View>
     )

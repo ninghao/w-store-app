@@ -32,17 +32,18 @@ class ShopIndex extends Component {
     console.log(`搜索：${value}`)
 
     this.setState({
-      searching: true
-    })
-
-    this.fetchData({
-      resource: 'products',
-      search: value,
-      page: this.state.current,
-      pageSize: this.state.pageSize,
-      success: this.fetchDataSuccess.bind(this),
-      fail: this.fetchDataFail.bind(this),
-      complete: this.fetchDataComplete.bind(this)
+      searching: true,
+      current: 1
+    }, () => {
+      this.fetchData({
+        resource: 'products',
+        search: value,
+        page: this.state.current,
+        pageSize: this.state.pageSize,
+        success: this.fetchDataSuccess.bind(this),
+        fail: this.fetchDataFail.bind(this),
+        complete: this.fetchDataComplete.bind(this)
+      })
     })
   }
 

@@ -17,7 +17,7 @@ class ProductList extends Component {
             <ProductListItem
               key={product.id}
               data={product}
-              onClick={this.props.onClickListItem.bind(this, product.id)}
+              onClick={this.props.onClickListItem.bind(this, product)}
             />
           )
         }

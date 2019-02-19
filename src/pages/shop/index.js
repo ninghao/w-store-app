@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtPagination } from 'taro-ui'
+import _ from 'lodash'
 import SearchBar from '../../components/search-bar'
 import ProductList from '../../components/product-list'
 import Placeholder from '../../components/placeholder';
@@ -26,6 +27,8 @@ class ShopIndex extends Component {
   }
 
   search(value = '') {
+    console.log(`搜索：${value}`)
+
     this.fetchData({
       resource: 'products',
       search: value,
@@ -36,12 +39,14 @@ class ShopIndex extends Component {
     })
   }
 
+  debounceSearch = _.debounce(this.search, 500)
+
   onChangeSearchBar(value) {
     console.log(value)
     this.setState({
       search: value
     }, () => {
-      this.search(this.state.search)
+      this.debounceSearch(this.state.search)
     })
   }
 

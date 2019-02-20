@@ -30,11 +30,13 @@ class ProductShow extends Component {
   }
 
   componentWillMount() {
-    const { id, name } = this.$router.params
+    const { id = 1, name } = this.$router.params
 
-    Taro.setNavigationBarTitle({
-      title: name
-    })
+    if (name) {
+      Taro.setNavigationBarTitle({
+        title: name
+      })
+    }
 
     this.fetchData({
       resource: 'products',

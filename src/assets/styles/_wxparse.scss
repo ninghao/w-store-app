@@ -1,0 +1,14 @@
+.wxParse {
+  &-h3 {
+    font-size: $font-size-lg;
+    font-weight: bold;
+    margin-bottom: $spacing-v-lg;
+  }
+
+  &-p {
+    margin-bottom: $spacing-v-lg;
+    color: $color-black-1;
+    line-height: 1.8;
+    font-size: $font-size-base;
+  }
+}

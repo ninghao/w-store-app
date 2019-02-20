@@ -4,6 +4,7 @@ import { AtBadge, Swiper, SwiperItem } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
+import RichTextWxParse from '../../components/rich-text-wx-parse'
 
 class ProductShow extends Component {
   config = {
@@ -106,40 +107,45 @@ class ProductShow extends Component {
       <View>
         <Placeholder className='m-3' show={placeholder} type='product' />
         {!placeholder &&
-          <View className='card mb-2' onClick={this.props.onClick}>
-            <Swiper
-              className='card-swiper'
-              indicatorDots={indicatorDots}
-              indicatorColor='#e5e5e5'
-              indicatorActiveColor='#ccc'
-              circular
-            >
-              {product.images.map(img =>
-                <SwiperItem key={img.id}>
-                  <Image
-                    className='card-img-top'
-                    src={img.src}
-                    mode='aspectFit'
-                  />
-                </SwiperItem>
-              )}
-            </Swiper>
-            <View className='card-body m-3'>
-              <View className='card-title mb-2'>
-                <View className='card-title-text'>
+          <View>
+            <View className='card mb-2' onClick={this.props.onClick}>
+              <Swiper
+                className='card-swiper'
+                indicatorDots={indicatorDots}
+                indicatorColor='#e5e5e5'
+                indicatorActiveColor='#ccc'
+                circular
+              >
+                {product.images.map(img =>
+                  <SwiperItem key={img.id}>
+                    <Image
+                      className='card-img-top'
+                      src={img.src}
+                      mode='aspectFit'
+                    />
+                  </SwiperItem>
+                )}
+              </Swiper>
+              <View className='card-body m-3'>
+                <View className='card-title mb-2'>
+                  <View className='card-title-text'>
+                    {product.on_sale &&
+                      <AtBadge className='card-title-badge' value='sale' />}
+                    {product.name}
+                  </View>
+                </View>
+                <View className='card-subtitle mb-3'>
                   {product.on_sale &&
-                    <AtBadge className='card-title-badge' value='sale' />}
-                  {product.name}
+                    <Text className='mr-2 text-muted text-through'>{'￥' + product.regular_price}</Text>}
+                  <Text>{'￥' + product.price}</Text>
+                </View>
+                <View className='card-text'>
+                  <RichText nodes={product.short_description} />
                 </View>
               </View>
-              <View className='card-subtitle mb-3'>
-                {product.on_sale &&
-                  <Text className='mr-2 text-muted text-through'>{'￥' + product.regular_price}</Text>}
-                <Text>{'￥' + product.price}</Text>
-              </View>
-              <View className='card-text'>
-                <RichText nodes={product.short_description} />
-              </View>
+            </View>
+            <View>
+              <RichTextWxParse className='mx-3 my-5' content={product.description} />
             </View>
           </View>
         }

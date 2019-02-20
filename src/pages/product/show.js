@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, RichText } from '@tarojs/components'
-import { AtBadge, Swiper, SwiperItem } from 'taro-ui'
+import { AtBadge, Swiper, SwiperItem, AtTabs, AtTabsPane } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
@@ -18,7 +18,8 @@ class ProductShow extends Component {
     placeholder: true,
     serviceError: false,
     errorPageMessage: '',
-    indicatorDots: false
+    indicatorDots: false,
+    activeTab: 0
   }
 
   constructor() {
@@ -100,8 +101,18 @@ class ProductShow extends Component {
     })
   }
 
+  onClickTab(activeTab) {
+    this.setState({
+      activeTab
+    })
+  }
+
   render() {
-    const { product, placeholder, serviceError, errorPageMessage, indicatorDots } = this.state
+    const { product, placeholder, serviceError, errorPageMessage, indicatorDots, activeTab } = this.state
+    const tabList = [
+      { title: '描述' },
+      { title: '参数' },
+    ]
 
     const page = (
       <View>
@@ -144,8 +155,19 @@ class ProductShow extends Component {
                 </View>
               </View>
             </View>
-            <View>
-              <RichTextWxParse className='mx-3 my-5' content={product.description} />
+            <View className='mx-3 my-5'>
+              <AtTabs
+                current={activeTab}
+                tabList={tabList}
+                onClick={this.onClickTab.bind(this)}
+              >
+                <AtTabsPane className='mt-4' current={activeTab} index={0}>
+                  <RichTextWxParse content={product.description} />
+                </AtTabsPane>
+                <AtTabsPane className='mt-4' current={activeTab} index={1}>
+                  <View>参数</View>
+                </AtTabsPane>
+              </AtTabs>
             </View>
           </View>
         }

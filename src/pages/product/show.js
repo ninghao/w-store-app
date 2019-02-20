@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image, RichText } from '@tarojs/components'
-import { AtBadge } from 'taro-ui'
+import { AtBadge, Swiper, SwiperItem } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
@@ -16,7 +16,8 @@ class ProductShow extends Component {
     product: {},
     placeholder: true,
     serviceError: false,
-    errorPageMessage: ''
+    errorPageMessage: '',
+    indicatorDots: false
   }
 
   constructor() {
@@ -47,6 +48,12 @@ class ProductShow extends Component {
     this.setState({
       product: data
     })
+
+    if (data.images.length > 1) {
+      this.setState({
+        indicatorDots: true
+      })
+    }
 
     Taro.setNavigationBarTitle({
       title: data.name
@@ -93,18 +100,30 @@ class ProductShow extends Component {
   }
 
   render() {
-    const { product, placeholder, serviceError, errorPageMessage } = this.state
+    const { product, placeholder, serviceError, errorPageMessage, indicatorDots } = this.state
 
     const page = (
       <View>
         <Placeholder className='m-3' show={placeholder} type='product' />
         {!placeholder &&
           <View className='card mb-2' onClick={this.props.onClick}>
-            <Image
-              className='card-img-top'
-              src={product.images[0].src}
-              mode='aspectFit'
-            />
+            <Swiper
+              className='card-swiper'
+              indicatorDots={indicatorDots}
+              indicatorColor='#e5e5e5'
+              indicatorActiveColor='#ccc'
+              circular
+            >
+              {product.images.map(img =>
+                <SwiperItem key={img.id}>
+                  <Image
+                    className='card-img-top'
+                    src={img.src}
+                    mode='aspectFit'
+                  />
+                </SwiperItem>
+              )}
+            </Swiper>
             <View className='card-body m-3'>
               <View className='card-title mb-2'>
                 <View className='card-title-text'>

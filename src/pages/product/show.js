@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text, Image, RichText } from '@tarojs/components'
+import { AtBadge } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
@@ -98,8 +99,29 @@ class ProductShow extends Component {
       <View>
         <Placeholder className='m-3' show={placeholder} type='product' />
         {!placeholder &&
-          <View className='page-demo'>
-            {product.name}
+          <View className='card mb-2' onClick={this.props.onClick}>
+            <Image
+              className='card-img-top'
+              src={product.images[0].src}
+              mode='aspectFit'
+            />
+            <View className='card-body m-3'>
+              <View className='card-title mb-2'>
+                <View className='card-title-text'>
+                  {product.on_sale &&
+                    <AtBadge className='card-title-badge' value='sale' />}
+                  {product.name}
+                </View>
+              </View>
+              <View className='card-subtitle mb-3'>
+                {product.on_sale &&
+                  <Text className='mr-2 text-muted text-through'>{'￥' + product.regular_price}</Text>}
+                <Text>{'￥' + product.price}</Text>
+              </View>
+              <View className='card-text'>
+                <RichText nodes={product.short_description} />
+              </View>
+            </View>
           </View>
         }
       </View>

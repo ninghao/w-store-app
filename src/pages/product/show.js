@@ -6,7 +6,9 @@ import ErrorPage from '../../components/error-page'
 
 class ProductShow extends Component {
   config = {
-    navigationBarTitleText: 'ProductShow'
+    navigationBarTitleText: 'ProductShow',
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
   }
 
   state = {
@@ -18,6 +20,24 @@ class ProductShow extends Component {
 
   constructor() {
     this.fetchData = fetchData
+
+    const { id = 1, name } = this.$router.params
+    this.id = id
+    this.name = name
+  }
+
+  onPullDownRefresh() {
+    this.setState({
+      serviceError: false
+    }, () => {
+      this.fetchData({
+        resource: 'products',
+        id: this.id,
+        success: this.fetchDataSuccess.bind(this),
+        fail: this.fetchDataFail.bind(this),
+        complete: this.fetchDataComplete.bind(this)
+      })
+    })
   }
 
   fetchDataSuccess(response) {
@@ -44,6 +64,8 @@ class ProductShow extends Component {
         placeholder: false
       })
     }
+
+    Taro.stopPullDownRefresh()
   }
 
   fetchDataFail(error) {
@@ -54,17 +76,15 @@ class ProductShow extends Component {
   }
 
   componentWillMount() {
-    const { id = 1, name } = this.$router.params
-
-    if (name) {
+    if (this.name) {
       Taro.setNavigationBarTitle({
-        title: name
+        title: this.name
       })
     }
 
     this.fetchData({
       resource: 'products',
-      id,
+      id: this.id,
       success: this.fetchDataSuccess.bind(this),
       fail: this.fetchDataFail.bind(this),
       complete: this.fetchDataComplete.bind(this)

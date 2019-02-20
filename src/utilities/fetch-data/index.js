@@ -40,7 +40,7 @@ async function fetchData({
         if (process.env.NODE_ENV === 'development') {
           setTimeout(() => {
             success(response)
-          }, 2000)
+          }, 1000)
         } else {
           success(response)
         }

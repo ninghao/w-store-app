@@ -29,6 +29,20 @@ class ProductShow extends Component {
     })
   }
 
+  fetchDataComplete() {
+    if (process.env.NODE_ENV === 'development') {
+      setTimeout(() => {
+        this.setState({
+          placeholder: false
+        })
+      }, 1000)
+    } else {
+      this.setState({
+        placeholder: false
+      })
+    }
+  }
+
   componentWillMount() {
     const { id = 1, name } = this.$router.params
 
@@ -41,7 +55,8 @@ class ProductShow extends Component {
     this.fetchData({
       resource: 'products',
       id,
-      success: this.fetchDataSuccess.bind(this)
+      success: this.fetchDataSuccess.bind(this),
+      complete: this.fetchDataComplete.bind(this)
     })
   }
 
@@ -51,9 +66,11 @@ class ProductShow extends Component {
     return (
       <View>
         <Placeholder className='m-3' show={placeholder} type='product' />
-        <View className='page-demo'>
-          {product.name}
-        </View>
+        {!placeholder &&
+          <View className='page-demo'>
+            {product.name}
+          </View>
+        }
       </View>
     )
   }

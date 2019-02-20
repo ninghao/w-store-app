@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import fetchData from '../../utilities/fetch-data'
+import Placeholder from '../../components/placeholder'
 
 class ProductShow extends Component {
   config = {
@@ -8,7 +9,8 @@ class ProductShow extends Component {
   }
 
   state = {
-    product: {}
+    product: {},
+    placeholder: true
   }
 
   constructor() {
@@ -42,10 +44,11 @@ class ProductShow extends Component {
   }
 
   render() {
-    const { product } = this.state
+    const { product, placeholder } = this.state
 
     return (
       <View>
+        <Placeholder className='m-3' show={placeholder} type='product' />
         <View className='page-demo'>
           {product.name}
         </View>

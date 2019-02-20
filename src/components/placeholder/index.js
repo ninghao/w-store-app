@@ -11,6 +11,7 @@ class Placeholder extends Component {
     className: '',
     quantity: 1,
     show: false,
+    type: ''
   }
 
   render() {
@@ -21,17 +22,33 @@ class Placeholder extends Component {
     const quantity = parseInt(this.props.quantity)
     const items = [...Array(quantity).keys()]
 
-    const { show } = this.props
+    const { show, type } = this.props
 
     return (
       <View>
         {
           show &&
           items.map(i =>
-            <View key={i} className={classValue}>
-              <View className='image rectangular'></View>
-              <View className='line'></View>
-              <View className='very short line'></View>
+            <View key={i}>
+              <View className={classValue}>
+                <View className='image rectangular'></View>
+                <View className='line'></View>
+                <View className='very short line'></View>
+              </View>
+              {type === 'product' &&
+                <View>
+                  <View className={`${classValue} mb-5`}>
+                    <View className='full line'></View>
+                    <View className='long line'></View>
+                  </View>
+                  <View className={`${classValue} mb-5`}>
+                    <View className='very short line'></View>
+                    <View className='full line'></View>
+                    <View className='full line'></View>
+                    <View className='medium line'></View>
+                  </View>
+                </View>
+              }
             </View>
           )
         }

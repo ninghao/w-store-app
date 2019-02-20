@@ -20,11 +20,11 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/product/show',
       'pages/shop/index',
       'pages/shop/cart',
       'pages/user/profile',
       'pages/index/index',
-      'pages/product/show'
     ],
     window: {
       backgroundTextStyle: 'light',

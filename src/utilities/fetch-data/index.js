@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import buildUrl from 'build-url'
+import _ from 'lodash'
 
 async function fetchData({
   resource = '',
@@ -11,11 +12,15 @@ async function fetchData({
   fail = () => { },
   complete = () => { }
 }) {
-  const queryParams = {}
+  let queryParams = {}
 
   if (search) queryParams.q = search
   if (page) queryParams._page = page
   if (pageSize) queryParams._limit = pageSize
+
+  if (_.isEmpty(queryParams)) {
+    queryParams = null
+  }
 
   const path = id ? `${resource}/${id}` : resource
 

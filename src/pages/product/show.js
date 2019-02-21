@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtList, AtListItem } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
-import RichTextWxParse from '../../components/rich-text-wx-parse'
 import ProductPageCard from '../../components/product-page-card'
+import ProductPageTab from '../../components/product-page-tab'
 
 class ProductShow extends Component {
   config = {
@@ -121,29 +120,12 @@ class ProductShow extends Component {
         {!placeholder &&
           <View>
             <ProductPageCard data={product} indicatorDots={indicatorDots} />
-            <View className='mx-3 my-5'>
-              <AtTabs
-                current={activeTab}
-                tabList={tabList}
-                onClick={this.onClickTab.bind(this)}
-              >
-                <AtTabsPane className='mt-4' current={activeTab} index={0}>
-                  <RichTextWxParse content={product.description} />
-                </AtTabsPane>
-                <AtTabsPane className='mt-4' current={activeTab} index={1}>
-                  <AtList hasBorder={false}>
-                    {product.attributes.map(attr =>
-                      <AtListItem
-                        key={attr.id}
-                        hasBorder={false}
-                        title={attr.name}
-                        note={attr.options.toString()}
-                      />
-                    )}
-                  </AtList>
-                </AtTabsPane>
-              </AtTabs>
-            </View>
+            <ProductPageTab
+              data={product}
+              tabList={tabList}
+              activeTab={activeTab}
+              onClick={this.onClickTab}
+            />
           </View>
         }
       </View>

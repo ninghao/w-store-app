@@ -5,7 +5,7 @@ import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
 import ProductPageCard from '../../components/product-page-card'
 import ProductPageTab from '../../components/product-page-tab'
-import MaterialIcon from '../../components/material-icon'
+import ProductPageTabBar from '../../components/product-page-tab-bar'
 
 class ProductShow extends Component {
   config = {
@@ -121,13 +121,13 @@ class ProductShow extends Component {
         {!placeholder &&
           <View>
             <ProductPageCard data={product} indicatorDots={indicatorDots} />
-            <MaterialIcon className='m-3' icon='ac_unit' size='24' color='#000' />
             <ProductPageTab
               data={product}
               tabList={tabList}
               activeTab={activeTab}
               onClick={this.onClickTab}
             />
+            <ProductPageTabBar />
           </View>
         }
       </View>

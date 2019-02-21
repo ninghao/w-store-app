@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, RichText } from '@tarojs/components'
-import { AtBadge, Swiper, SwiperItem, AtTabs, AtTabsPane, AtList, AtListItem } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtTabs, AtTabsPane, AtList, AtListItem } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
 import RichTextWxParse from '../../components/rich-text-wx-parse'
+import ProductPageCard from '../../components/product-page-card'
 
 class ProductShow extends Component {
   config = {
@@ -119,42 +120,7 @@ class ProductShow extends Component {
         <Placeholder className='m-3' show={placeholder} type='product' />
         {!placeholder &&
           <View>
-            <View className='card mb-2' onClick={this.props.onClick}>
-              <Swiper
-                className='card-swiper'
-                indicatorDots={indicatorDots}
-                indicatorColor='#e5e5e5'
-                indicatorActiveColor='#ccc'
-                circular
-              >
-                {product.images.map(img =>
-                  <SwiperItem key={img.id}>
-                    <Image
-                      className='card-img-top'
-                      src={img.src}
-                      mode='aspectFit'
-                    />
-                  </SwiperItem>
-                )}
-              </Swiper>
-              <View className='card-body m-3'>
-                <View className='card-title mb-2'>
-                  <View className='card-title-text'>
-                    {product.on_sale &&
-                      <AtBadge className='card-title-badge' value='sale' />}
-                    {product.name}
-                  </View>
-                </View>
-                <View className='card-subtitle mb-3'>
-                  {product.on_sale &&
-                    <Text className='mr-2 text-muted text-through'>{'￥' + product.regular_price}</Text>}
-                  <Text>{'￥' + product.price}</Text>
-                </View>
-                <View className='card-text'>
-                  <RichText nodes={product.short_description} />
-                </View>
-              </View>
-            </View>
+            <ProductPageCard data={product} indicatorDots={indicatorDots} />
             <View className='mx-3 my-5'>
               <AtTabs
                 current={activeTab}

@@ -8,27 +8,62 @@ class ProductPageTabBar extends Component {
     addGlobalClass: true
   }
 
+  static defaultProps = {
+    primary: '',
+    secondary: '',
+    icon: '',
+    disabled: false,
+    disabledText: '',
+    dot: false,
+    onClick: () => { }
+  }
+
+  handleClick() {
+    this.props.onClick(...arguments)
+  }
+
   render() {
+    const { primary, secondary, icon, disabled, disabledText, dot } = this.props
+
+    const iconItem = (
+      <View
+        className='at-tab-bar__item tab-bar__item--icon'
+        onClick={this.handleClick.bind(this, 'icon')}
+      >
+        <AtBadge dot={dot}>
+          <View className='at-tab-bar__icon'>
+            <MaterialIcon icon={icon} color='#000' />
+          </View>
+        </AtBadge>
+      </View>
+    )
+
+    const primaryItem = (
+      <View className='tab-bar__item'>
+        <AtButton
+          disabled={disabled}
+          type='primary'
+          onClick={this.handleClick.bind(this, 'primary')}
+        >{disabled ? disabledText : primary}</AtButton>
+      </View>
+    )
+
+    const secondaryItem = (
+      <View className='tab-bar__item'>
+        <AtButton
+          disabled={disabled}
+          type='secondary'
+          onClick={this.handleClick.bind(this, 'secondary')}
+        >{secondary}</AtButton>
+      </View>
+    )
+
     return (
       <View className={this.props.className}>
         <View className='at-tab-bar at-tab-bar--fixed tab-bar'>
-          <View className='at-tab-bar__item tab-bar__item--icon'>
-            <AtBadge dot>
-              <View className='at-tab-bar__icon'>
-                <MaterialIcon icon='shopping_basket' color='#000' />
-              </View>
-            </AtBadge>
-          </View>
-          <View className='tab-bar__item'>
-            <AtButton
-              type='secondary'
-            >加入购物袋</AtButton>
-          </View>
-          <View className='tab-bar__item'>
-            <AtButton
-              type='primary'
-            >立即购买</AtButton>
-          </View>
+          {icon && iconItem}
+          {secondary && secondaryItem}
+          {primary && primaryItem}
         </View>
       </View>
     )

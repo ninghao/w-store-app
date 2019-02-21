@@ -108,6 +108,10 @@ class ProductShow extends Component {
     })
   }
 
+  onClickTabBar(item) {
+    console.log(`点击: ${item}`)
+  }
+
   render() {
     const { product, placeholder, serviceError, errorPageMessage, indicatorDots, activeTab } = this.state
     const tabList = [
@@ -127,7 +131,15 @@ class ProductShow extends Component {
               activeTab={activeTab}
               onClick={this.onClickTab}
             />
-            <ProductPageTabBar />
+            <ProductPageTabBar
+              primary='立即购买'
+              secondary='加入购物袋'
+              icon='shopping_basket'
+              disabled={false}
+              disabledText='暂时无货'
+              onClick={this.onClickTabBar}
+              dot
+            />
           </View>
         }
       </View>

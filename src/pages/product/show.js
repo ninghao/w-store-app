@@ -120,6 +120,7 @@ class ProductShow extends Component {
         {!placeholder &&
           <View>
             <ProductPageCard data={product} indicatorDots={indicatorDots} />
+            <Text className='material-icons' style='font-size: 48px; color: #6435c9'>face</Text>
             <ProductPageTab
               data={product}
               tabList={tabList}

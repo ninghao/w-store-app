@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtActionSheet } from 'taro-ui'
+import { AtActionSheet, AtButton } from 'taro-ui'
 
 class ProductPageActionSheet extends Component {
   static options = {
@@ -9,7 +9,9 @@ class ProductPageActionSheet extends Component {
 
   render() {
     const {
-      show
+      show,
+      action,
+      actionText
     } = this.props
 
     return (
@@ -17,6 +19,9 @@ class ProductPageActionSheet extends Component {
         <AtActionSheet isOpened={show}>
           <View className='p-3'>
             ActionSheet
+          </View>
+          <View>
+            <AtButton type={action}>{actionText}</AtButton>
           </View>
         </AtActionSheet>
       </View>

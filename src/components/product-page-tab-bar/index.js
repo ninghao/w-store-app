@@ -43,7 +43,7 @@ class ProductPageTabBar extends Component {
         <AtButton
           disabled={disabled}
           type='primary'
-          onClick={this.handleClick.bind(this, 'primary')}
+          onClick={this.handleClick.bind(this, 'primary', primary)}
         >{disabled ? disabledText : primary}</AtButton>
       </View>
     )
@@ -53,7 +53,7 @@ class ProductPageTabBar extends Component {
         <AtButton
           disabled={disabled}
           type='secondary'
-          onClick={this.handleClick.bind(this, 'secondary')}
+          onClick={this.handleClick.bind(this, 'secondary', secondary)}
         >{secondary}</AtButton>
       </View>
     )

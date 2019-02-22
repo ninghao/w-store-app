@@ -52,11 +52,11 @@ class ProductPageActionSheet extends Component {
           </View>
           <View className='action-sheet__body text-left'>
             <View className='action-sheet__list mb-3'>
-              <View className='action-sheet__list-item p-3 mx-3'>
+              <View className='action-sheet__list-item py-3 mx-3'>
                 <View className='action-sheet__list-item-title mb-2'>数量</View>
                 <View className='action-sheet__list-item-content'>
                   <AtInputNumber
-                    min={0}
+                    min={1}
                     max={10}
                     step={1}
                     value={quantity}

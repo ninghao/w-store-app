@@ -22,7 +22,7 @@ class ProductPageActionSheet extends Component {
     return (
       <View className='action-sheet'>
         <AtActionSheet isOpened={show}>
-          <View className='action-sheet__header p-3 mx-3 text-left'>
+          <View className='action-sheet__header py-3 mx-3 text-left'>
             <Image
               className='action-sheet__header-image mr-2'
               src={product.images[0].src}

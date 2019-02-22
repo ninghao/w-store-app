@@ -21,7 +21,8 @@ class ProductShow extends Component {
     serviceError: false,
     errorPageMessage: '',
     indicatorDots: false,
-    activeTab: 0
+    activeTab: 0,
+    actionSheet: false,
   }
 
   constructor() {
@@ -111,10 +112,31 @@ class ProductShow extends Component {
 
   onClickTabBar(item) {
     console.log(`点击: ${item}`)
+
+    switch (item) {
+      case 'primary':
+        this.setState({
+          actionSheet: true
+        })
+        break
+      case 'secondary':
+        this.setState({
+          actionSheet: true
+        })
+        break
+    }
   }
 
   render() {
-    const { product, placeholder, serviceError, errorPageMessage, indicatorDots, activeTab } = this.state
+    const {
+      product,
+      placeholder,
+      serviceError,
+      errorPageMessage,
+      indicatorDots,
+      activeTab,
+      actionSheet
+    } = this.state
     const tabList = [
       { title: '描述' },
       { title: '参数' },
@@ -141,7 +163,9 @@ class ProductShow extends Component {
               onClick={this.onClickTabBar}
               dot
             />
-            <ProductPageActionSheet />
+            <ProductPageActionSheet
+              show={actionSheet}
+            />
           </View>
         }
       </View>

@@ -8,9 +8,13 @@ class ProductPageActionSheet extends Component {
   }
 
   render() {
+    const {
+      show
+    } = this.props
+
     return (
       <View>
-        <AtActionSheet isOpened>
+        <AtActionSheet isOpened={show}>
           <View className='p-3'>
             ActionSheet
           </View>

@@ -182,6 +182,7 @@ class ProductShow extends Component {
             />
             <ProductPageActionSheet
               show={actionSheet}
+              data={product}
               action={actionSheetAction}
               actionText={actionSheetActionText}
               onClick={this.onClickActionSheetAction.bind(this)}

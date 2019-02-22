@@ -21,7 +21,6 @@ class ProductShow extends Component {
     serviceError: false,
     errorPageMessage: '',
     indicatorDots: false,
-    activeTab: 0,
     actionSheet: false,
     actionSheetAction: '',
     actionSheetActionText: '',
@@ -106,12 +105,6 @@ class ProductShow extends Component {
     })
   }
 
-  onClickTab(activeTab) {
-    this.setState({
-      activeTab
-    })
-  }
-
   onClickTabBar(item, itemText) {
     console.log(`点击: ${item}`)
 
@@ -148,7 +141,6 @@ class ProductShow extends Component {
       serviceError,
       errorPageMessage,
       indicatorDots,
-      activeTab,
       actionSheet,
       actionSheetAction,
       actionSheetActionText
@@ -168,8 +160,6 @@ class ProductShow extends Component {
             <ProductPageTab
               data={product}
               tabList={tabList}
-              activeTab={activeTab}
-              onClick={this.onClickTab}
             />
             <ProductPageTabBar
               primary='立即购买'

@@ -6,6 +6,7 @@ import ErrorPage from '../../components/error-page'
 import ProductPageCard from '../../components/product-page-card'
 import ProductPageTab from '../../components/product-page-tab'
 import ProductPageTabBar from '../../components/product-page-tab-bar'
+import ProductPageActionSheet from '../../components/product-page-action-sheet'
 
 class ProductShow extends Component {
   config = {
@@ -140,6 +141,7 @@ class ProductShow extends Component {
               onClick={this.onClickTabBar}
               dot
             />
+            <ProductPageActionSheet />
           </View>
         }
       </View>

@@ -8,3 +8,15 @@
 @import "wxparse";
 @import "material-icon";
 @import "tab-bar";
+
+.action-sheet {
+  &__action .at-button {
+    border-radius: 0;
+    border: none;
+  }
+
+  &__action .at-button--secondary {
+    background: $color-grey-1;
+    color: #fff;
+  }
+}

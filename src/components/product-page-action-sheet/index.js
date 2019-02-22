@@ -15,12 +15,12 @@ class ProductPageActionSheet extends Component {
     } = this.props
 
     return (
-      <View>
+      <View className='action-sheet'>
         <AtActionSheet isOpened={show}>
           <View className='p-3'>
             ActionSheet
           </View>
-          <View>
+          <View className='action-sheet__action'>
             <AtButton type={action}>{actionText}</AtButton>
           </View>
         </AtActionSheet>

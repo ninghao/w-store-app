@@ -133,6 +133,14 @@ class ProductShow extends Component {
     }
   }
 
+  onClickActionSheetAction(obj) {
+    this.setState({
+      actionSheet: false
+    })
+
+    console.log(obj)
+  }
+
   render() {
     const {
       product,
@@ -176,6 +184,7 @@ class ProductShow extends Component {
               show={actionSheet}
               action={actionSheetAction}
               actionText={actionSheetActionText}
+              onClick={this.onClickActionSheetAction.bind(this)}
             />
           </View>
         }

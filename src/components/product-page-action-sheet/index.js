@@ -7,6 +7,10 @@ class ProductPageActionSheet extends Component {
     addGlobalClass: true
   }
 
+  handleClick() {
+    this.props.onClick(this.state)
+  }
+
   render() {
     const {
       show,
@@ -21,7 +25,7 @@ class ProductPageActionSheet extends Component {
             ActionSheet
           </View>
           <View className='action-sheet__action'>
-            <AtButton type={action}>{actionText}</AtButton>
+            <AtButton type={action} onClick={this.handleClick}>{actionText}</AtButton>
           </View>
         </AtActionSheet>
       </View>

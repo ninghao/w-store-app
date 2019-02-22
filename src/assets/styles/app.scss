@@ -8,29 +8,4 @@
 @import "wxparse";
 @import "material-icon";
 @import "tab-bar";
-
-.action-sheet {
-  &__header {
-    display: flex;
-    font-size: $font-size-lg;
-  }
-
-  &__header-image {
-    width: 100px * $hd;
-    height: 100px * $hd;
-  }
-
-  &__header-text {
-    align-self: center;
-  }
-  
-  &__action .at-button {
-    border-radius: 0;
-    border: none;
-  }
-
-  &__action .at-button--secondary {
-    background: $color-grey-1;
-    color: #fff;
-  }
-}
+@import "action-sheet";

@@ -10,7 +10,7 @@ import ProductPageActionSheet from '../../components/product-page-action-sheet'
 
 class ProductShow extends Component {
   config = {
-    navigationBarTitleText: 'ProductShow',
+    navigationBarTitleText: '商品详情',
     enablePullDownRefresh: true,
     backgroundTextStyle: 'dark'
   }
@@ -152,7 +152,7 @@ class ProductShow extends Component {
     ]
 
     const page = (
-      <View>
+      <View className='pb-3'>
         <Placeholder className='m-3' show={placeholder} type='product' />
         {!placeholder &&
           <View>
@@ -160,15 +160,6 @@ class ProductShow extends Component {
             <ProductPageTab
               data={product}
               tabList={tabList}
-            />
-            <ProductPageTabBar
-              primary='立即购买'
-              secondary='加入购物袋'
-              icon='shopping_basket'
-              disabled={false}
-              disabledText='暂时无货'
-              onClick={this.onClickTabBar}
-              dot
             />
             <ProductPageActionSheet
               show={actionSheet}
@@ -179,6 +170,15 @@ class ProductShow extends Component {
             />
           </View>
         }
+        <ProductPageTabBar
+          primary='立即购买'
+          secondary='加入购物袋'
+          icon='shopping_basket'
+          disabled={false}
+          disabledText='暂时无货'
+          onClick={this.onClickTabBar}
+          dot
+        />
       </View>
     )
 

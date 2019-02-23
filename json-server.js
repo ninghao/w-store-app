@@ -71,6 +71,15 @@ const updateCartTotal = () => {
     .write()
 }
 
+const clearCart = () => {
+  const result = db.set('cart', {
+    total: 0,
+    items: []
+  }).write()
+
+  return result
+}
+
 server.post('/cart-item', (req, res) => {
   const product_id = parseInt(req.body.product_id, 10)
   const quantity = parseInt(req.body.quantity, 10)
@@ -149,6 +158,11 @@ server.delete('/cart-item/:id', (req, res) => {
   const id = parseInt(req.params.id)
   removeCartItem(id)
   updateCartTotal()
+  res.sendStatus(200)
+})
+
+server.post('/cart/clear', (req, res) => {
+  clearCart()
   res.sendStatus(200)
 })
 

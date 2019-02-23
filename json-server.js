@@ -49,6 +49,14 @@ const updateCartItem = (id, item) => {
   return result
 }
 
+const removeCartItem = (id) => {
+  const result = db.get('cart.items')
+    .remove({ product_id: parseInt(id) })
+    .write()
+
+  return result
+}
+
 const updateCartTotal = () => {
   const total = db.get('cart.items')
     .map('total')
@@ -134,6 +142,13 @@ server.patch('/cart-item/:id', (req, res) => {
   updateCartItem(id, item)
   updateCartTotal()
 
+  res.sendStatus(200)
+})
+
+server.delete('/cart-item/:id', (req, res) => {
+  const id = parseInt(req.params.id)
+  removeCartItem(id)
+  updateCartTotal()
   res.sendStatus(200)
 })
 

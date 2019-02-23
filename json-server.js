@@ -49,6 +49,20 @@ const updateCartItem = (id, item) => {
   return result
 }
 
+const updateCartTotal = () => {
+  const total = db.get('cart.items')
+    .map('total')
+    .value()
+
+  const value = total.reduce((v1, v2) => {
+    return v1 + v2
+  }, 0)
+
+  db.get('cart')
+    .assign({ total: value })
+    .write()
+}
+
 server.post('/cart-item', (req, res) => {
   const product_id = parseInt(req.body.product_id, 10)
   const quantity = parseInt(req.body.quantity, 10)
@@ -84,6 +98,7 @@ server.post('/cart-item', (req, res) => {
     res.sendStatus('201')
   }
 
+  updateCartTotal()
   res.jsonp('success')
 })
 

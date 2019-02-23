@@ -24,8 +24,40 @@ const getProduct = (id) => {
   return result
 }
 
-const product = getProduct(1)
-console.log(product)
+const addCartItem = (item) => {
+  const result = db.get('cart.items')
+    .push(item)
+    .write()
+
+  return result
+}
+
+server.post('/cart-item', (req, res) => {
+  const product_id = parseInt(req.body.product_id, 10)
+  const quantity = parseInt(req.body.quantity, 10)
+
+  const product = getProduct(product_id)
+
+  if (!product) {
+    res.sendStatus('404')
+    return
+  }
+
+  const { name, price, images } = product
+  const total = parseInt(price) * parseInt(quantity)
+
+  let item = {
+    product_id,
+    name,
+    image: images[0].src,
+    price,
+    quantity,
+    total
+  }
+
+  addCartItem(item)
+  res.sendStatus('201')
+})
 
 server.use(router)
 

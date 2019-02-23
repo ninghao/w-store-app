@@ -16,6 +16,17 @@ const middlewares = jsonServer.defaults()
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
+const getProduct = (id) => {
+  const result = db.get('products')
+    .find({ id: parseInt(id, 10) })
+    .value()
+
+  return result
+}
+
+const product = getProduct(1)
+console.log(product)
+
 server.use(router)
 
 server.listen(3333, () => {

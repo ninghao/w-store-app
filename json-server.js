@@ -32,6 +32,23 @@ const addCartItem = (item) => {
   return result
 }
 
+const getCartItem = (id) => {
+  const result = db.get('cart.items')
+    .find({ product_id: parseInt(id) })
+    .value()
+
+  return result
+}
+
+const updateCartItem = (id, item) => {
+  const result = db.get('cart.items')
+    .find({ product_id: parseInt(id) })
+    .assign(item)
+    .write()
+
+  return result
+}
+
 server.post('/cart-item', (req, res) => {
   const product_id = parseInt(req.body.product_id, 10)
   const quantity = parseInt(req.body.quantity, 10)
@@ -55,8 +72,19 @@ server.post('/cart-item', (req, res) => {
     total
   }
 
-  addCartItem(item)
-  res.sendStatus('201')
+  const result = getCartItem(product_id)
+
+  if (result) {
+    item.quantity = parseInt(quantity) + parseInt(result.quantity)
+    item.total = total + parseInt(result.total)
+
+    updateCartItem(product_id, item)
+  } else {
+    addCartItem(item)
+    res.sendStatus('201')
+  }
+
+  res.jsonp('success')
 })
 
 server.use(router)

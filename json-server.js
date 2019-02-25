@@ -80,6 +80,13 @@ const clearCart = () => {
   return result
 }
 
+server.get('/shopping-cart', (req, res) => {
+  const cart = db.get('cart')
+    .value()
+
+  res.jsonp(cart)
+})
+
 server.post('/cart-item', (req, res) => {
   const product_id = parseInt(req.body.product_id, 10)
   const quantity = parseInt(req.body.quantity, 10)

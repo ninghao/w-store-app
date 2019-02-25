@@ -126,7 +126,27 @@ class ProductShow extends Component {
     }
   }
 
+  addCartItem(item) {
+    Taro.request({
+      method: 'POST',
+      url: `${API_WS}/cart-item`,
+      data: item
+    })
+  }
+
   onClickActionSheetAction(obj) {
+    const { action, quantity } = obj
+    const { product } = this.state
+
+    switch (action) {
+      case 'secondary':
+        this.addCartItem({
+          product_id: product.id,
+          quantity
+        })
+        break
+    }
+
     this.setState({
       actionSheet: false
     })

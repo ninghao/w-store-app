@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import { AtMessage } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import Placeholder from '../../components/placeholder'
 import ErrorPage from '../../components/error-page'
@@ -126,12 +127,27 @@ class ProductShow extends Component {
     }
   }
 
-  addCartItem(item) {
-    Taro.request({
+  async addCartItem(item) {
+    const response = await Taro.request({
       method: 'POST',
       url: `${API_WS}/cart-item`,
       data: item
     })
+
+    switch (response.statusCode) {
+      case 200:
+        Taro.atMessage({
+          message: '操作成功',
+          type: 'success'
+        })
+        break
+      default:
+        Taro.atMessage({
+          message: '操作失败',
+          type: 'error'
+        })
+        break
+    }
   }
 
   onClickActionSheetAction(obj) {
@@ -205,6 +221,7 @@ class ProductShow extends Component {
     const errorPage = <ErrorPage content={errorPageMessage} />
     return (
       <View>
+        <AtMessage />
         {serviceError ? errorPage : page}
       </View>
     )

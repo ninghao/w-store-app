@@ -16,7 +16,7 @@
     "dev:tt": "npm run build:tt -- --watch",
     "dev:h5": "npm run build:h5 -- --watch",
     "dev:rn": "npm run build:rn -- --watch",
-    "dev:server": "nodemon json-server.js"
+    "dev:server": "nodemon json-server.js --watch json-server.js"
   },
   "author": "",
   "license": "MIT",

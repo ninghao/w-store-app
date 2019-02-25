@@ -20,9 +20,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/shop/cart',
       'pages/product/show',
       'pages/shop/index',
-      'pages/shop/cart',
       'pages/user/profile',
       'pages/index/index',
     ],

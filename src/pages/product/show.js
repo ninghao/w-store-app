@@ -134,6 +134,11 @@ class ProductShow extends Component {
     console.log(`点击: ${item}`)
 
     switch (item) {
+      case 'icon':
+        Taro.switchTab({
+          url: '/pages/shop/cart'
+        })
+        break
       case 'primary':
         this.setState({
           actionSheet: true,

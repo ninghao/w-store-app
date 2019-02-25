@@ -1,14 +1,14 @@
 {
   "cart": {
-    "total": 312,
+    "total": 390,
     "items": [
       {
         "product_id": 1,
         "name": "坦桑尼亚穆丽瓦咖啡豆",
         "image": "https://resources.ninghao.net/w-store/images/tanzania-muriba-e1548378296332.jpg",
         "price": "78",
-        "quantity": 4,
-        "total": 312
+        "quantity": 5,
+        "total": 390
       }
     ]
   },

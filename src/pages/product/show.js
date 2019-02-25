@@ -25,6 +25,7 @@ class ProductShow extends Component {
     actionSheet: false,
     actionSheetAction: '',
     actionSheetActionText: '',
+    cartIndicator: false
   }
 
   constructor() {
@@ -140,6 +141,20 @@ class ProductShow extends Component {
           message: '操作成功',
           type: 'success'
         })
+
+        this.setState({
+          cartIndicator: true
+        })
+        break
+      case 201:
+        Taro.atMessage({
+          message: '操作成功',
+          type: 'success'
+        })
+
+        this.setState({
+          cartIndicator: true
+        })
         break
       default:
         Taro.atMessage({
@@ -179,7 +194,8 @@ class ProductShow extends Component {
       indicatorDots,
       actionSheet,
       actionSheetAction,
-      actionSheetActionText
+      actionSheetActionText,
+      cartIndicator
     } = this.state
 
     const tabList = [
@@ -213,7 +229,7 @@ class ProductShow extends Component {
           disabled={false}
           disabledText='暂时无货'
           onClick={this.onClickTabBar}
-          dot
+          dot={cartIndicator}
         />
       </View>
     )

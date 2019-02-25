@@ -117,13 +117,13 @@ server.post('/cart-item', (req, res) => {
     item.total = total + parseInt(result.total)
 
     updateCartItem(product_id, item)
+    updateCartTotal()
+    res.jsonp('success')
   } else {
     addCartItem(item)
     res.sendStatus('201')
+    updateCartTotal()
   }
-
-  updateCartTotal()
-  res.jsonp('success')
 })
 
 server.patch('/cart-item/:id', (req, res) => {

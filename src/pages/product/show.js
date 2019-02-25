@@ -40,6 +40,8 @@ class ProductShow extends Component {
     this.setState({
       serviceError: false
     }, () => {
+      this.getCart()
+
       this.fetchData({
         resource: 'products',
         id: this.id,
@@ -91,12 +93,33 @@ class ProductShow extends Component {
     })
   }
 
+  getCartSuccess(response) {
+    if (response.data.items.length > 0) {
+      this.setState({
+        cartIndicator: true
+      })
+    } else {
+      this.setState({
+        cartIndicator: false
+      })
+    }
+  }
+
+  getCart() {
+    this.fetchData({
+      resource: 'cart',
+      success: this.getCartSuccess.bind(this)
+    })
+  }
+
   componentWillMount() {
     if (this.name) {
       Taro.setNavigationBarTitle({
         title: this.name
       })
     }
+
+    this.getCart()
 
     this.fetchData({
       resource: 'products',

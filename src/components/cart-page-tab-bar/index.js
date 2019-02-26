@@ -37,7 +37,7 @@ class CartPageTabBar extends Component {
 
     const iconItem = (
       <View
-        className='at-tab-bar__item tab-bar__item--icon'
+        className='at-tab-bar__item tab-bar__icon'
         onClick={this.handleClick.bind(this, 'icon')}
       >
         <AtBadge dot={dot}>
@@ -69,7 +69,7 @@ class CartPageTabBar extends Component {
     )
 
     const textButtonItem = (
-      <View className='tab-bar__item tab-bar__item--text-button'>
+      <View className='tab-bar__item tab-bar__text-button'>
         <AtButton
           onClick={this.handleClick.bind(this, 'textButton', textButton)}
         >{textButton}</AtButton>
@@ -77,7 +77,7 @@ class CartPageTabBar extends Component {
     )
 
     const textItem = (
-      <View className='tab-bar__item tab-bar__item--text'>
+      <View className='tab-bar__item tab-bar__text'>
         {text && <Text className='text-muted'>{text}</Text>}
         {textPrimary && <Text className='text-bold ml-2'>{textPrimary}</Text>}
       </View>

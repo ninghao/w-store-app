@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import { AtCheckbox } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
 import CartItemList from '../../components/cart-item-list'
+import CartPageTabBar from '../../components/cart-page-tab-bar'
 
 class ShopCart extends Component {
   config = {
@@ -52,16 +52,41 @@ class ShopCart extends Component {
     })
   }
 
+  sumItems(items, compareItems, compare, prop) {
+    const result = items.map(item => {
+      if (compareItems.includes(item[compare])) {
+        return item[prop]
+      }
+      return 0
+    })
+
+    return result.reduce((v1, v2) => v1 + v2, 0)
+  }
+
   render() {
     const { cart, selectedItems } = this.state
 
+    const quantity = this.sumItems(cart.items, selectedItems, 'product_id', 'quantity')
+    const total = this.sumItems(cart.items, selectedItems, 'product_id', 'total')
+
+    const tabBarText = `(${quantity}) 件`
+    const tabBarTextPrimary = `￥${total}`
+
     return (
-      <View>
+      <View className='pb-5'>
         <CartItemList
           items={cart.items}
           selected={selectedItems}
           onChange={this.onChangeCartItem.bind(this)}
           className='mb-5'
+        />
+        <CartPageTabBar
+          primary='提交订单'
+          disabled={selectedItems.length === 0}
+          disabledText='请先选择'
+          textButton='编辑'
+          text={tabBarText}
+          textPrimary={tabBarTextPrimary}
         />
       </View>
     )

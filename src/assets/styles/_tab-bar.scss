@@ -27,3 +27,14 @@
   background: $color-grey-1;
   color: #fff;
 }
+
+.tab-bar__item--text-button {
+  @include hairline-top();
+}
+
+.tab-bar__item--text {
+  @include hairline-top();
+  font-size: $font-size-base;
+  flex: 2;
+  padding-top: $spacing-v-lg;
+}

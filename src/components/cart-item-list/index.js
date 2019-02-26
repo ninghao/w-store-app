@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import classNames from 'classnames'
 
 class CartItemList extends Component {
@@ -32,7 +32,25 @@ class CartItemList extends Component {
           const classValue = classNames('list__item')
 
           return <View key={value} className={classValue}>
-            {title}
+            <View className='list__item-checkbox'>
+              <View className='at-checkbox__icon-cnt'>
+                <Text className='at-icon at-icon-check'></Text>
+              </View>
+            </View>
+            <Image className='list__item-image' src={image} mode='aspectFit' />
+            <View className='list__item-content'>
+              <View className='list__item-content-header mb-1'>
+                {title}
+              </View>
+              <View className='list__item-content-item mb-1'>
+                <Text className='text-muted'>
+                  {'￥' + price + ' × ' + quantity}
+                </Text>
+              </View>
+              <View className='list__item-content-footer'>
+                <Text>{'￥' + total}</Text>
+              </View>
+            </View>
           </View>
         })}
       </View>

@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtCheckbox } from 'taro-ui'
 import fetchData from '../../utilities/fetch-data'
+import CartItemList from '../../components/cart-item-list'
 
 class ShopCart extends Component {
   config = {
@@ -53,21 +54,12 @@ class ShopCart extends Component {
 
   render() {
     const { cart, selectedItems } = this.state
-    const items = cart.items.map(item => {
-      const { product_id, name, price, quantity, total } = item
-
-      return {
-        value: product_id,
-        label: name,
-        desc: `￥${price} × ${quantity} = ￥${total}`
-      }
-    })
 
     return (
       <View>
-        <AtCheckbox
-          options={items}
-          selectedList={selectedItems}
+        <CartItemList
+          items={cart.items}
+          selected={selectedItems}
           onChange={this.onChangeCartItem.bind(this)}
         />
       </View>

@@ -13,6 +13,21 @@ class CartItemList extends Component {
     addGlobalClass: true
   }
 
+  handleClick(index) {
+    const { selected, items } = this.props
+    const item = items[index]
+    const { product_id: value } = item
+    const selectedSet = new Set(selected)
+
+    if (!selectedSet.has(value)) {
+      selectedSet.add(value)
+    } else {
+      selectedSet.delete(value)
+    }
+
+    this.props.onChange([...selectedSet])
+  }
+
   render() {
     const { items, selected, className } = this.props
     const rootClassValue = classNames('list', className)
@@ -29,9 +44,15 @@ class CartItemList extends Component {
             total
           } = item
 
-          const classValue = classNames('list__item')
+          const classValue = classNames('list__item', {
+            'at-checkbox__option--selected': selected.includes(value)
+          })
 
-          return <View key={value} className={classValue}>
+          return <View
+            key={value}
+            className={classValue}
+            onClick={this.handleClick.bind(this, index)}
+          >
             <View className='list__item-checkbox'>
               <View className='at-checkbox__icon-cnt'>
                 <Text className='at-icon at-icon-check'></Text>

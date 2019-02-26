@@ -9,3 +9,38 @@
 @import "material-icon";
 @import "tab-bar";
 @import "action-sheet";
+
+.list__item {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacer;
+  @include hairline-bottom();
+
+  &:active {
+    background: $color-grey-6;
+  }
+
+  &-checkbox {
+    align-self: center;
+  }
+
+  &-image {
+    width: 120px * $hd;
+    height: 120px * $hd;
+  }
+
+  &-content {
+    font-size: $font-size-base;
+    align-self: center;
+    flex: 1;
+    padding: $spacer;
+  }
+
+  &-content-header {
+    font-weight: bold;
+  }
+
+  &:nth-last-child(1)::after {
+    border-bottom-width: 0;
+  }
+}

@@ -61,6 +61,7 @@ class ShopCart extends Component {
           items={cart.items}
           selected={selectedItems}
           onChange={this.onChangeCartItem.bind(this)}
+          className='mb-5'
         />
       </View>
     )

@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import _ from 'lodash'
 import fetchData from '../../utilities/fetch-data'
 import CartItemList from '../../components/cart-item-list'
 import CartPageTabBar from '../../components/cart-page-tab-bar'
@@ -76,6 +77,29 @@ class ShopCart extends Component {
     }
   }
 
+  async removeCartItem(id) {
+    const response = await Taro.request({
+      method: 'DELETE',
+      url: `${API_WS}/cart-item/${id}`
+    })
+
+    switch (response.statusCode) {
+      case 200:
+        const { cart } = this.state
+        const newItems = _.filter(cart.items, item => item.product_id !== id)
+        const newCart = {
+          ...cart,
+          items: newItems
+        }
+
+        this.setState({
+          cart: newCart
+        })
+
+        break
+    }
+  }
+
   onChangeCartItem(type, value, id) {
     switch (type) {
       case 'checkbox':
@@ -86,6 +110,11 @@ class ShopCart extends Component {
         break
       case 'input':
         this.updateCartItem(id, value)
+
+        break
+      case 'remove':
+        this.removeCartItem(value)
+
         break
     }
 

@@ -1,23 +1,7 @@
 {
   "cart": {
-    "total": 810,
+    "total": 376,
     "items": [
-      {
-        "product_id": 1,
-        "name": "坦桑尼亚穆丽瓦咖啡豆",
-        "image": "https://resources.ninghao.net/w-store/images/tanzania-muriba-e1548378296332.jpg",
-        "price": "78",
-        "quantity": 1,
-        "total": 78
-      },
-      {
-        "product_id": 2,
-        "name": "哥斯达黎加纳兰诺咖啡豆",
-        "image": "https://resources.ninghao.net/w-store/images/costa-rica-naranjo.jpg",
-        "price": "178",
-        "quantity": 2,
-        "total": 356
-      },
       {
         "product_id": 4,
         "name": "埃塞俄比亚赛其索咖啡豆",

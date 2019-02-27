@@ -63,7 +63,7 @@ class CartItemList extends Component {
           )
 
           const removeItem = (
-            <View className='list__item-checkbox'>
+            <View className='list__item-checkbox' onClick={this.props.onChange.bind(this, 'remove', value)}>
               <MaterialIcon icon='remove_circle' size='24' className='mt-2' />
             </View>
           )

@@ -85,6 +85,7 @@ class ShopCart extends Component {
           disabled={selectedItems.length === 0}
           disabledText='请先选择'
           textButton='编辑'
+          textButtonAlt='完成'
           text={tabBarText}
           textPrimary={tabBarTextPrimary}
         />

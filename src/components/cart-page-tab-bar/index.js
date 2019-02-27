@@ -18,7 +18,23 @@ class CartPageTabBar extends Component {
     onClick: () => { }
   }
 
-  handleClick() {
+  state = {
+    altTextButton: false
+  }
+
+  handleClick(type) {
+    switch (type) {
+      case 'textButton':
+        this.setState({
+          altTextButton: true
+        })
+        break
+      case 'textButtonAlt':
+        this.setState({
+          altTextButton: false
+        })
+        break
+    }
     this.props.onClick(...arguments)
   }
 
@@ -32,8 +48,13 @@ class CartPageTabBar extends Component {
       dot,
       textButton,
       text,
-      textPrimary
+      textPrimary,
+      textButtonAlt
     } = this.props
+
+    const {
+      altTextButton
+    } = this.state
 
     const iconItem = (
       <View
@@ -76,6 +97,15 @@ class CartPageTabBar extends Component {
       </View>
     )
 
+    const textButtonAltItem = (
+      <View className='tab-bar__item'>
+        <AtButton
+          type='secondary'
+          onClick={this.handleClick.bind(this, 'textButtonAlt', textButtonAlt)}
+        >{textButtonAlt}</AtButton>
+      </View>
+    )
+
     const textItem = (
       <View className='tab-bar__item tab-bar__text'>
         {text && <Text className='text-muted'>{text}</Text>}
@@ -88,7 +118,8 @@ class CartPageTabBar extends Component {
         <View className='at-tab-bar at-tab-bar--fixed tab-bar'>
           {icon && iconItem}
           {(text || textPrimary) && textItem}
-          {textButton && textButtonItem}
+          {!altTextButton && textButton && textButtonItem}
+          {altTextButton && textButtonAlt && textButtonAltItem}
           {secondary && secondaryItem}
           {primary && primaryItem}
         </View>

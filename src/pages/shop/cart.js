@@ -14,7 +14,8 @@ class ShopCart extends Component {
       total: 0,
       items: []
     },
-    selectedItems: []
+    selectedItems: [],
+    editing: false
   }
 
   constructor() {
@@ -50,6 +51,31 @@ class ShopCart extends Component {
     }, () => {
       console.log(this.state.selectedItems)
     })
+  }
+
+  onClickTabBar(type) {
+    switch (type) {
+      case 'textButton':
+        this.setState({
+          editing: true
+        })
+
+        Taro.setNavigationBarTitle({
+          title: '编辑购物袋'
+        })
+
+        break
+      case 'textButtonAlt':
+        this.setState({
+          editing: false
+        })
+
+        Taro.setNavigationBarTitle({
+          title: '购物袋'
+        })
+
+        break
+    }
   }
 
   sumItems(items, compareItems, compare, prop) {
@@ -88,6 +114,7 @@ class ShopCart extends Component {
           textButtonAlt='完成'
           text={tabBarText}
           textPrimary={tabBarTextPrimary}
+          onClick={this.onClickTabBar}
         />
       </View>
     )

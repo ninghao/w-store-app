@@ -45,12 +45,19 @@ class ShopCart extends Component {
     this.getCart()
   }
 
-  onChangeCartItem(type, value) {
-    this.setState({
-      selectedItems: value
-    }, () => {
-      console.log(this.state.selectedItems)
-    })
+  onChangeCartItem(type, value, id) {
+    switch (type) {
+      case 'checkbox':
+        this.setState({
+          selectedItems: value
+        })
+
+        break
+      case 'input':
+        console.log(type, value, id)
+        break
+    }
+
   }
 
   onClickTabBar(type) {

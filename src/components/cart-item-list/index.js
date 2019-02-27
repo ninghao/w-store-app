@@ -30,6 +30,10 @@ class CartItemList extends Component {
     this.props.onChange(type, [...selectedSet])
   }
 
+  handleChangeInput(id, value) {
+    this.props.onChange('input', value, id)
+  }
+
   render() {
     const { items, selected, className, editing } = this.props
     const rootClassValue = classNames('list', className)
@@ -71,6 +75,7 @@ class CartItemList extends Component {
               step={1}
               value={quantity}
               className='my-2'
+              onChange={this.handleChangeInput.bind(this, value)}
             />
           )
 

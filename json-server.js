@@ -161,6 +161,41 @@ server.patch('/cart-item/:id', (req, res) => {
   res.sendStatus(200)
 })
 
+server.put('/cart-item/:id', (req, res) => {
+  const id = parseInt(req.params.id)
+  const quantity = parseInt(req.body.quantity)
+  const product = getProduct(id)
+
+  if (!product) {
+    res.sendStatus('404')
+    return
+  }
+
+  const result = getCartItem(id)
+
+  if (!result) {
+    res.sendStatus('404')
+    return
+  }
+
+  const { name, price, images } = product
+  const total = parseInt(price) * parseInt(quantity)
+
+  let item = {
+    product_id: id,
+    name,
+    image: images[0].src,
+    price,
+    quantity,
+    total
+  }
+
+  updateCartItem(id, item)
+  updateCartTotal()
+
+  res.sendStatus(200)
+})
+
 server.delete('/cart-item/:id', (req, res) => {
   const id = parseInt(req.params.id)
   removeCartItem(id)

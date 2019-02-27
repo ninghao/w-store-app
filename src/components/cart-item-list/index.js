@@ -15,7 +15,7 @@ class CartItemList extends Component {
     addGlobalClass: true
   }
 
-  handleClick(index) {
+  handleClick(type, index) {
     const { selected, items } = this.props
     const item = items[index]
     const { product_id: value } = item
@@ -27,7 +27,7 @@ class CartItemList extends Component {
       selectedSet.delete(value)
     }
 
-    this.props.onChange([...selectedSet])
+    this.props.onChange(type, [...selectedSet])
   }
 
   render() {
@@ -51,7 +51,7 @@ class CartItemList extends Component {
           })
 
           const checkbox = (
-            <View className='list__item-checkbox'>
+            <View className='list__item-checkbox' onClick={this.handleClick.bind(this, 'checkbox', index)}>
               <View className='at-checkbox__icon-cnt'>
                 <Text className='at-icon at-icon-check'></Text>
               </View>
@@ -85,10 +85,9 @@ class CartItemList extends Component {
           return <View
             key={value}
             className={classValue}
-            onClick={this.handleClick.bind(this, index)}
           >
             {editing ? removeItem : checkbox}
-            <Image className='list__item-image' src={image} mode='aspectFit' />
+            <Image className='list__item-image' src={image} mode='aspectFit' onClick={this.handleClick.bind(this, 'checkbox', index)} />
             <View className='list__item-content'>
               <View className='list__item-content-header mb-1'>
                 {title}

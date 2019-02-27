@@ -45,7 +45,7 @@ class ShopCart extends Component {
     this.getCart()
   }
 
-  onChangeCartItem(value) {
+  onChangeCartItem(type, value) {
     this.setState({
       selectedItems: value
     }, () => {

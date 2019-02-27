@@ -158,7 +158,7 @@ server.patch('/cart-item/:id', (req, res) => {
   updateCartItem(id, item)
   updateCartTotal()
 
-  res.sendStatus(200)
+  res.jsonp(item)
 })
 
 server.put('/cart-item/:id', (req, res) => {
@@ -193,7 +193,7 @@ server.put('/cart-item/:id', (req, res) => {
   updateCartItem(id, item)
   updateCartTotal()
 
-  res.sendStatus(200)
+  res.jsonp(item)
 })
 
 server.delete('/cart-item/:id', (req, res) => {

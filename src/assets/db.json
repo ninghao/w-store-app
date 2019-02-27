@@ -1,6 +1,6 @@
 {
   "cart": {
-    "total": 1344,
+    "total": 810,
     "items": [
       {
         "product_id": 1,
@@ -15,8 +15,8 @@
         "name": "哥斯达黎加纳兰诺咖啡豆",
         "image": "https://resources.ninghao.net/w-store/images/costa-rica-naranjo.jpg",
         "price": "178",
-        "quantity": 5,
-        "total": 890
+        "quantity": 2,
+        "total": 356
       },
       {
         "product_id": 4,

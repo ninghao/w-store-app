@@ -22,6 +22,10 @@
 
   &-checkbox {
     align-self: center;
+    height: 120px * $hd;
+    width: 30px * $hd;
+    display: flex;
+    align-items: center;
   }
 
   &-image {

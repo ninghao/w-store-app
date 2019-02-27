@@ -1,6 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import classNames from 'classnames'
+import { AtInputNumber } from 'taro-ui'
+import MaterialIcon from '../material-icon'
 
 class CartItemList extends Component {
   static defaultProps = {
@@ -29,7 +31,7 @@ class CartItemList extends Component {
   }
 
   render() {
-    const { items, selected, className } = this.props
+    const { items, selected, className, editing } = this.props
     const rootClassValue = classNames('list', className)
 
     return (
@@ -48,26 +50,50 @@ class CartItemList extends Component {
             'at-checkbox__option--selected': selected.includes(value)
           })
 
-          return <View
-            key={value}
-            className={classValue}
-            onClick={this.handleClick.bind(this, index)}
-          >
+          const checkbox = (
             <View className='list__item-checkbox'>
               <View className='at-checkbox__icon-cnt'>
                 <Text className='at-icon at-icon-check'></Text>
               </View>
             </View>
+          )
+
+          const removeItem = (
+            <View className='list__item-checkbox'>
+              <MaterialIcon icon='remove_circle' size='24' className='mt-2' />
+            </View>
+          )
+
+          const inputNumber = (
+            <AtInputNumber
+              min={1}
+              max={100}
+              step={1}
+              value={quantity}
+              className='my-2'
+            />
+          )
+
+          const quantityItem = (
+            <View className='list__item-content-item mb-1'>
+              <Text className='text-muted'>
+                {'￥' + price + ' × ' + quantity}
+              </Text>
+            </View>
+          )
+
+          return <View
+            key={value}
+            className={classValue}
+            onClick={this.handleClick.bind(this, index)}
+          >
+            {editing ? removeItem : checkbox}
             <Image className='list__item-image' src={image} mode='aspectFit' />
             <View className='list__item-content'>
               <View className='list__item-content-header mb-1'>
                 {title}
               </View>
-              <View className='list__item-content-item mb-1'>
-                <Text className='text-muted'>
-                  {'￥' + price + ' × ' + quantity}
-                </Text>
-              </View>
+              {editing ? inputNumber : quantityItem}
               <View className='list__item-content-footer'>
                 <Text>{'￥' + total}</Text>
               </View>

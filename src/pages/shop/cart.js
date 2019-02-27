@@ -90,7 +90,7 @@ class ShopCart extends Component {
   }
 
   render() {
-    const { cart, selectedItems } = this.state
+    const { cart, selectedItems, editing } = this.state
 
     const quantity = this.sumItems(cart.items, selectedItems, 'product_id', 'quantity')
     const total = this.sumItems(cart.items, selectedItems, 'product_id', 'total')
@@ -105,6 +105,7 @@ class ShopCart extends Component {
           selected={selectedItems}
           onChange={this.onChangeCartItem.bind(this)}
           className='mb-5'
+          editing={editing}
         />
         <CartPageTabBar
           primary='提交订单'

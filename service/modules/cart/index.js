@@ -1,20 +1,8 @@
 /* eslint-disable import/no-commonjs */
-const jsonServer = require('json-server')
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const path = require('path')
+const express = require('express')
+const { db } = require('../../db')
 
-const dbFile = path.join(__dirname, 'src', 'assets', 'db.json')
-const adapter = new FileSync(dbFile)
-const db = low(adapter)
-
-const server = jsonServer.create()
-const router = jsonServer.router(dbFile)
-const middlewares = jsonServer.defaults()
-
-
-server.use(middlewares)
-server.use(jsonServer.bodyParser)
+const router = express.Router()
 
 const getProduct = (id) => {
   const result = db.get('products')
@@ -80,14 +68,14 @@ const clearCart = () => {
   return result
 }
 
-server.get('/shopping-cart', (req, res) => {
+router.get('/shopping-cart', (req, res) => {
   const cart = db.get('cart')
     .value()
 
   res.jsonp(cart)
 })
 
-server.post('/cart-item', (req, res) => {
+router.post('/cart-item', (req, res) => {
   const product_id = parseInt(req.body.product_id, 10)
   const quantity = parseInt(req.body.quantity, 10)
 
@@ -126,7 +114,7 @@ server.post('/cart-item', (req, res) => {
   }
 })
 
-server.patch('/cart-item/:id', (req, res) => {
+router.patch('/cart-item/:id', (req, res) => {
   const id = parseInt(req.params.id)
   const quantity = parseInt(req.body.quantity)
   const product = getProduct(id)
@@ -161,7 +149,7 @@ server.patch('/cart-item/:id', (req, res) => {
   res.jsonp(item)
 })
 
-server.put('/cart-item/:id', (req, res) => {
+router.put('/cart-item/:id', (req, res) => {
   const id = parseInt(req.params.id)
   const quantity = parseInt(req.body.quantity)
   const product = getProduct(id)
@@ -196,20 +184,16 @@ server.put('/cart-item/:id', (req, res) => {
   res.jsonp(item)
 })
 
-server.delete('/cart-item/:id', (req, res) => {
+router.delete('/cart-item/:id', (req, res) => {
   const id = parseInt(req.params.id)
   removeCartItem(id)
   updateCartTotal()
   res.sendStatus(200)
 })
 
-server.post('/cart/clear', (req, res) => {
+router.post('/cart/clear', (req, res) => {
   clearCart()
   res.sendStatus(200)
 })
 
-server.use(router)
-
-server.listen(3333, () => {
-  console.log('JSON server is running on port 3333.')
-})
+module.exports = router

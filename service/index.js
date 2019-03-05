@@ -7,11 +7,12 @@ const router = jsonServer.router(dbFile)
 const middlewares = jsonServer.defaults()
 
 const cart = require('./modules/cart')
+const user = require('./modules/user')
 
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
-server.use([cart])
+server.use([cart, user])
 
 server.use(router)
 

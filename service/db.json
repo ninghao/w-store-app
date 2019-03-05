@@ -20,6 +20,13 @@
       }
     ]
   },
+  "users": [
+    {
+      "username": "wanghao",
+      "password": "111111",
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const path = require('path')
 const { db } = require('../../db')
+const { authMiddleware } = require('./middleware')
 
 const privateKey = fs.readFileSync(
   path.join(__dirname, '..', '..', 'config', 'cert', 'private_key.pem')
@@ -78,6 +79,11 @@ router.post('/user-login', (req, res) => {
         res.status(401).jsonp('密码不匹配！')
       }
     })
+})
+
+// 验证 JWT
+router.post('/token/validate', authMiddleware, (req, res) => {
+  res.jsonp('valid')
 })
 
 module.exports = router

@@ -1,9 +1,33 @@
 /* eslint-disable import/no-commonjs */
 const express = require('express')
-const bcrypt = require("bcrypt")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const fs = require('fs')
+const path = require('path')
 const { db } = require('../../db')
 
+const privateKey = fs.readFileSync(
+  path.join(__dirname, '..', '..', 'config', 'cert', 'private_key.pem')
+)
+
 const router = express.Router()
+
+const signToken = (data) => {
+  const payload = {
+    id: data.id,
+    usrname: data.username
+  }
+
+  const token = jwt.sign(
+    payload,
+    privateKey,
+    {
+      algorithm: 'RS256'
+    }
+  )
+
+  return token
+}
 
 const getUserByName = (username) => {
   const result = db.get('users')
@@ -43,7 +67,13 @@ router.post('/user-login', (req, res) => {
   bcrypt.compare(password, user.password)
     .then(result => {
       if (result) {
-        res.jsonp('登录成功。')
+        const token = signToken(user)
+
+        res.jsonp({
+          id: user.id,
+          username: user.username,
+          token
+        })
       } else {
         res.status(401).jsonp('密码不匹配！')
       }

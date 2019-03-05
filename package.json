@@ -55,6 +55,7 @@
     "babel-plugin-transform-jsx-stylesheet": "^0.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "bcrypt": "^3.0.4",
     "eslint": "^4.19.1",
     "eslint-config-taro": "1.2.12",
     "eslint-plugin-import": "^2.12.0",

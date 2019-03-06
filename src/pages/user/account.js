@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import { AtInput, AtButton, AtMessage } from 'taro-ui'
 
 class UserAccount extends Component {
@@ -9,7 +9,9 @@ class UserAccount extends Component {
 
   state = {
     username: '',
-    password: ''
+    password: '',
+    action: 'login',
+    submitButtonText: '登录'
   }
 
   async userLogin() {
@@ -67,7 +69,50 @@ class UserAccount extends Component {
     }
   }
 
+  handleClickText(text) {
+    switch (text) {
+      case 'register':
+        Taro.setNavigationBarTitle({
+          title: '注册用户'
+        })
+
+        this.setState({
+          action: 'register',
+          submitButtonText: '注册用户'
+        })
+
+        break
+      case 'login':
+        Taro.setNavigationBarTitle({
+          title: '登录'
+        })
+
+        this.setState({
+          action: 'login',
+          submitButtonText: '登录'
+        })
+
+        break
+    }
+  }
+
   render() {
+    const { action, submitButtonText } = this.state
+
+    const registerText = (
+      <Text
+        className='px-2'
+        onClick={this.handleClickText.bind(this, 'register')}
+      >注册用户</Text>
+    )
+
+    const loginText = (
+      <Text
+        className='px-2'
+        onClick={this.handleClickText.bind(this, 'login')}
+      >登录</Text>
+    )
+
     return (
       <View className='pt-5 m-5 form'>
         <AtMessage />
@@ -89,9 +134,13 @@ class UserAccount extends Component {
         />
         <AtButton
           type='primary'
-          onClick={this.handleClick.bind(this, 'login')}
+          onClick={this.handleClick.bind(this, action)}
           className='mt-5'
-        >登录</AtButton>
+        >{submitButtonText}</AtButton>
+        <View className='mt-3 text-center text-muted'>
+          {action === 'login' && registerText}
+          {action === 'register' && loginText}
+        </View>
       </View>
     )
   }

@@ -31,6 +31,8 @@ const signToken = (data) => {
 }
 
 const getUserByName = (username) => {
+  db.read()
+
   const result = db.get('users')
     .find({ username })
     .value()

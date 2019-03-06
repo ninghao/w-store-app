@@ -31,6 +31,8 @@ class UserAccount extends Component {
           data: response.data
         })
 
+        Taro.eventCenter.trigger('user::logged_in', response.data)
+
         Taro.navigateBack()
 
         break

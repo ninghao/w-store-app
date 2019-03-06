@@ -30,6 +30,11 @@
       "username": "wanghao1",
       "password": "$2b$10$RoWSFY2rTPE8Mefpf6eLHuxPWslrsIBAh3cLVN8wVb1j9sIDryVPW",
       "id": 2
+    },
+    {
+      "username": "xiaoxue",
+      "password": "$2b$10$RVtsUT.6DNbaJHevDS5OOOQaTCzNGySBa1E9/2x0Iy4cOc3ZDtgxy",
+      "id": 3
     }
   ],
   "products": [

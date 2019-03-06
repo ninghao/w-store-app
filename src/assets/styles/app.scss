@@ -48,3 +48,15 @@
     border-bottom-width: 0;
   }
 }
+
+.form {
+  font-size: $font-size-base;
+}
+
+.form .at-input {
+  margin-left: 0;
+}
+
+.form .at-button {
+  border-radius: 0;
+}

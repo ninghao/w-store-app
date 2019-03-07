@@ -1,4 +1,5 @@
 /* eslint-disable import/no-commonjs */
+require('dotenv').config()
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -10,6 +11,8 @@ const { authMiddleware } = require('./middleware')
 const privateKey = fs.readFileSync(
   path.join(__dirname, '..', '..', 'config', 'cert', 'private_key.pem')
 )
+
+const { WX_APP_ID, WX_SECRET } = process.env
 
 const router = express.Router()
 
@@ -97,6 +100,7 @@ router.post('/wx-login', (req, res) => {
   }
 
   console.log('登录凭证', code)
+  console.log(WX_APP_ID, WX_SECRET)
 })
 
 module.exports = router

@@ -121,7 +121,15 @@ class UserAccount extends Component {
         })
 
         break
+      case 'wxLogin':
+        this.wxUserLogin()
+
+        break
     }
+  }
+
+  async wxUserLogin() {
+    console.log('微信登录')
   }
 
   render() {
@@ -139,6 +147,13 @@ class UserAccount extends Component {
         className='px-2'
         onClick={this.handleClickText.bind(this, 'login')}
       >登录</Text>
+    )
+
+    const wxLoginText = (
+      <Text
+        className='px-2'
+        onClick={this.handleClickText.bind(this, 'wxLogin')}
+      >微信登录</Text>
     )
 
     return (
@@ -168,6 +183,8 @@ class UserAccount extends Component {
         <View className='mt-3 text-center text-muted'>
           {action === 'login' && registerText}
           {action === 'register' && loginText}
+          /
+          {wxLoginText}
         </View>
       </View>
     )

@@ -147,6 +147,21 @@ class UserAccount extends Component {
     console.log('登录凭证：', code)
 
     if (!code) return
+
+    try {
+      const response = await Taro.request({
+        method: 'POST',
+        url: `${API_WS}/wx-login`,
+        data: {
+          code
+        }
+      })
+    } catch (error) {
+      Taro.atMessage({
+        type: 'error',
+        message: '微信登录失败，请重试！'
+      })
+    }
   }
 
   render() {

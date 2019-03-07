@@ -88,4 +88,15 @@ router.post('/token/validate', authMiddleware, (req, res) => {
   res.jsonp('valid')
 })
 
+// 微信登录
+router.post('/wx-login', (req, res) => {
+  const { code } = req.body
+
+  if (!code) {
+    res.status(400).jsonp('微信登录失败，请重试！')
+  }
+
+  console.log('登录凭证', code)
+})
+
 module.exports = router

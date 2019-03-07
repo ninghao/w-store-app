@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtInput, AtButton, AtMessage } from 'taro-ui'
+import { AtInput, AtButton, AtMessage, AtActionSheet } from 'taro-ui'
 
 class UserAccount extends Component {
   config = {
@@ -11,7 +11,24 @@ class UserAccount extends Component {
     username: '',
     password: '',
     action: 'login',
-    submitButtonText: '登录'
+    submitButtonText: '登录',
+    openGetUserInfoActionSheet: false
+  }
+
+  handleClickActionSheet(item) {
+    switch (item) {
+      case 'primary':
+        console.log('action sheet primary action')
+        break
+    }
+
+    this.setState({
+      openGetUserInfoActionSheet: false
+    })
+  }
+
+  handleGetUserInfo(result) {
+    console.log(result)
   }
 
   async userLogin() {
@@ -146,6 +163,10 @@ class UserAccount extends Component {
       const userInfo = await Taro.getUserInfo()
       return userInfo
     } catch (error) {
+      this.setState({
+        openGetUserInfoActionSheet: true
+      })
+
       throw new Error(error.errMsg)
     }
   }
@@ -191,7 +212,7 @@ class UserAccount extends Component {
   }
 
   render() {
-    const { action, submitButtonText } = this.state
+    const { action, submitButtonText, openGetUserInfoActionSheet } = this.state
 
     const registerText = (
       <Text
@@ -244,6 +265,22 @@ class UserAccount extends Component {
           /
           {wxLoginText}
         </View>
+        <AtActionSheet
+          className='action-sheet'
+          title='需要您授权我们使用微信帐户数据。'
+          isOpened={openGetUserInfoActionSheet}
+        >
+          <View className='action-sheet__action'>
+            <AtButton
+              type='primary'
+              open-type='getUserInfo'
+              onClick={this.handleClickActionSheet.bind(this, 'primary')}
+              onGetUserInfo={this.handleGetUserInfo.bind(this)}
+            >
+              授权获取用户信息
+            </AtButton>
+          </View>
+        </AtActionSheet>
       </View>
     )
   }

@@ -128,8 +128,25 @@ class UserAccount extends Component {
     }
   }
 
+  async wxLoginCode() {
+    try {
+      const response = await Taro.login()
+      const { code } = response
+      return code
+    } catch (error) {
+      Taro.atMessage({
+        type: 'error',
+        message: '微信登录失败，请重试！'
+      })
+    }
+  }
+
   async wxUserLogin() {
     console.log('微信登录')
+    const code = await this.wxLoginCode()
+    console.log('登录凭证：', code)
+
+    if (!code) return
   }
 
   render() {

@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const path = require('path')
+const http = require('axios')
 const { db } = require('../../db')
 const { authMiddleware } = require('./middleware')
 
@@ -41,6 +42,19 @@ const getUserByName = (username) => {
     .value()
 
   return result
+}
+
+const getWxSession = async (code) => {
+  const WX_API = 'https://api.weixin.qq.com/sns/jscode2session'
+  const url = `${WX_API}?appid=${WX_APP_ID}&secret=${WX_SECRET}&js_code=${code}&grant_type=authorization_code`
+
+  try {
+    const response = await http.get(url)
+
+    return response.data
+  } catch (error) {
+    throw new Error('获取微信登录会话失败！')
+  }
 }
 
 // 用户注册
@@ -92,15 +106,21 @@ router.post('/token/validate', authMiddleware, (req, res) => {
 })
 
 // 微信登录
-router.post('/wx-login', (req, res) => {
+router.post('/wx-login', async (req, res) => {
   const { code } = req.body
 
   if (!code) {
     res.status(400).jsonp('微信登录失败，请重试！')
   }
 
-  console.log('登录凭证', code)
-  console.log(WX_APP_ID, WX_SECRET)
+  try {
+    const sessionData = await getWxSession(code)
+    console.log(sessionData)
+
+    res.jsonp('ok')
+  } catch (error) {
+    res.status(500).jsonp(error.message)
+  }
 })
 
 module.exports = router

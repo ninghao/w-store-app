@@ -156,6 +156,8 @@ class UserAccount extends Component {
           code
         }
       })
+
+      console.log(response)
     } catch (error) {
       Taro.atMessage({
         type: 'error',

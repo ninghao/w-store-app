@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const path = require('path')
 const http = require('axios')
+const _ = require('lodash')
 const { db } = require('../../db')
 const { authMiddleware } = require('./middleware')
 
@@ -120,10 +121,12 @@ router.post('/token/validate', authMiddleware, (req, res) => {
 
 // 微信登录
 router.post('/wx-login', async (req, res) => {
+  db.read()
   const { code } = req.body
 
   if (!code) {
     res.status(400).jsonp('微信登录失败，请重试！')
+    return
   }
 
   try {
@@ -133,6 +136,7 @@ router.post('/wx-login', async (req, res) => {
 
     if (!user) {
       res.status(404).jsonp('还没有绑定微信帐户。')
+      return
     }
 
     res.jsonp('ok')
@@ -143,7 +147,55 @@ router.post('/wx-login', async (req, res) => {
 
 // 微信帐户绑定
 router.post('/wx-bind', async (req, res) => {
-  res.jsonp('wx-bind')
+  db.read()
+  const { username, password, wxUserInfo, code } = req.body
+
+  // 查找绑定用户名是否存在
+  const user = getUserByName(username)
+  if (!user) {
+    res.status(404).jsonp('用户名不存在。')
+    return
+  }
+
+  // 如果用户存在，立即验证密码
+  const passwordMatch = await bcrypt.compare(password, user.password)
+  if (!passwordMatch) {
+    res.status(403).jsonp('密码不对。')
+    return
+  }
+
+  // 确定用户是否已经绑定了微信
+  if (_.has(user, 'weixin.openid')) {
+    res.status(403).jsonp('这个用户已经绑定了微信帐户。')
+    return
+  }
+
+  // 用户存在并没有绑定微信，就去获取用户微信会话
+  const sessionData = await getWxSession(code)
+  const openidIsUsed = getUserByOpenId(sessionData.openid)
+  if (openidIsUsed) {
+    res.status(400).jsonp('微信帐户已经与其他用户绑定了。')
+    return
+  }
+
+  // 存储微信数据
+  const weixin = {
+    openid: sessionData.openid,
+    userInfo: wxUserInfo.userInfo
+  }
+
+  db.get('users')
+    .find({ username: user.username })
+    .assign({ weixin })
+    .write()
+
+  // 让用户登录
+  const token = signToken(user)
+  res.jsonp({
+    id: user.id,
+    username: user.username,
+    token
+  })
 })
 
 module.exports = router

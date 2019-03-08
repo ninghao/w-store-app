@@ -24,7 +24,19 @@
     {
       "username": "wanghao",
       "password": "$2b$10$0xrmFwV0b8IiWj8pwA0KbuNfy0kaZLcQZUa7nZ17Ukg6H.m/0qluG",
-      "id": 1
+      "id": 1,
+      "weixin": {
+        "openid": "ou-jw0FgRzVEWrVblN0LF58SPuQM",
+        "userInfo": {
+          "nickName": "王皓",
+          "gender": 1,
+          "language": "zh_CN",
+          "city": "Jinan",
+          "province": "Shandong",
+          "country": "China",
+          "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJneyUKN0WPb8FFy4uDTficcZX6icuWLficfrWhuRUT9aOMzQ8GdbkAjeNfwPYbkDOO0LSlMms3Odhnw/132"
+        }
+      }
     },
     {
       "username": "wanghao1",

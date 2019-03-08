@@ -60,3 +60,9 @@
 .form .at-button {
   border-radius: 0;
 }
+
+.avatar {
+  width: 56px * $hd;
+  height: 56px * $hd;
+  border-radius: $border-radius-md;
+}

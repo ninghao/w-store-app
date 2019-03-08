@@ -24,7 +24,22 @@
     {
       "username": "wanghao",
       "password": "$2b$10$0xrmFwV0b8IiWj8pwA0KbuNfy0kaZLcQZUa7nZ17Ukg6H.m/0qluG",
-      "id": 1,
+      "id": 1
+    },
+    {
+      "username": "wanghao1",
+      "password": "$2b$10$RoWSFY2rTPE8Mefpf6eLHuxPWslrsIBAh3cLVN8wVb1j9sIDryVPW",
+      "id": 2
+    },
+    {
+      "username": "xiaoxue",
+      "password": "$2b$10$RVtsUT.6DNbaJHevDS5OOOQaTCzNGySBa1E9/2x0Iy4cOc3ZDtgxy",
+      "id": 3
+    },
+    {
+      "username": "zhangsan",
+      "password": "$2b$10$LVQC10hgrFItUyVPraP63ejhCWoginyERQQNnAxGFufqvN9HIWvHu",
+      "id": 4,
       "weixin": {
         "openid": "ou-jw0FgRzVEWrVblN0LF58SPuQM",
         "userInfo": {
@@ -37,16 +52,6 @@
           "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJneyUKN0WPb8FFy4uDTficcZX6icuWLficfrWhuRUT9aOMzQ8GdbkAjeNfwPYbkDOO0LSlMms3Odhnw/132"
         }
       }
-    },
-    {
-      "username": "wanghao1",
-      "password": "$2b$10$RoWSFY2rTPE8Mefpf6eLHuxPWslrsIBAh3cLVN8wVb1j9sIDryVPW",
-      "id": 2
-    },
-    {
-      "username": "xiaoxue",
-      "password": "$2b$10$RVtsUT.6DNbaJHevDS5OOOQaTCzNGySBa1E9/2x0Iy4cOc3ZDtgxy",
-      "id": 3
     }
   ],
   "products": [

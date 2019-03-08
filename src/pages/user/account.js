@@ -84,7 +84,7 @@ class UserAccount extends Component {
   }
 
   async userRegister() {
-    const { username, password } = this.state
+    const { username, password, wxUserLogin } = this.state
 
     const response = await Taro.request({
       method: 'POST',
@@ -97,7 +97,11 @@ class UserAccount extends Component {
 
     switch (response.statusCode) {
       case 201:
-        this.userLogin()
+        if (wxUserLogin) {
+          this.wxUserLogin()
+        } else {
+          this.userLogin()
+        }
         break
       case 409:
         Taro.atMessage({
@@ -154,6 +158,23 @@ class UserAccount extends Component {
         Taro.eventCenter.trigger('user::logged_in', response.data)
         Taro.navigateBack()
         break
+      case 404:
+        const result = await Taro.showModal({
+          title: '是否创建新用户',
+          content: '请求绑定的用户不存在，是否要创建一个新用户？'
+        })
+
+        if (result.confirm) {
+          this.setState({
+            action: 'register',
+            submitButtonText: '注册用户',
+            wxUserLogin: true
+          })
+
+          Taro.setNavigationBarTitle({
+            title: '注册用户'
+          })
+        }
       default:
         Taro.atMessage({
           type: 'error',
@@ -173,7 +194,8 @@ class UserAccount extends Component {
 
         this.setState({
           action: 'register',
-          submitButtonText: '注册用户'
+          submitButtonText: '注册用户',
+          wxUserLogin: false
         })
 
         break

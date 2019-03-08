@@ -122,7 +122,29 @@ class UserAccount extends Component {
       case 'register':
         this.userRegister(this)
         break
+      case 'wxBind':
+        this.wxUserBindSubmit()
+        break
     }
+  }
+
+  async wxUserBindSubmit() {
+    const { username, password, wxUserInfo } = this.state
+    const code = await this.wxLoginCode()
+    if (!code) return
+
+    const response = await Taro.request({
+      method: 'POST',
+      url: `${API_WS}/wx-bind`,
+      data: {
+        username,
+        password,
+        wxUserInfo,
+        code
+      }
+    })
+
+    console.log(response)
   }
 
   handleClickText(text) {

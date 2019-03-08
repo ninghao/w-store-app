@@ -141,4 +141,9 @@ router.post('/wx-login', async (req, res) => {
   }
 })
 
+// 微信帐户绑定
+router.post('/wx-bind', async (req, res) => {
+  res.jsonp('wx-bind')
+})
+
 module.exports = router

@@ -261,6 +261,15 @@ class UserAccount extends Component {
       })
 
       switch (response.statusCode) {
+        case 200:
+          await Taro.setStorage({
+            key: 'token',
+            data: response.data
+          })
+
+          Taro.eventCenter.trigger('user::logged_in', response.data)
+          Taro.navigateBack()
+          break
         case 404:
           this.wxUserBind()
           break

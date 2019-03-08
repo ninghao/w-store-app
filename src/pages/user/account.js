@@ -12,7 +12,8 @@ class UserAccount extends Component {
     password: '',
     action: 'login',
     submitButtonText: '登录',
-    openGetUserInfoActionSheet: false
+    openGetUserInfoActionSheet: false,
+    wxUserInfo: {}
   }
 
   handleClickActionSheet(item) {
@@ -28,7 +29,17 @@ class UserAccount extends Component {
   }
 
   handleGetUserInfo(result) {
-    console.log(result)
+    switch (result.detail.errMsg) {
+      case 'getUserInfo:ok':
+        this.wxUserBind()
+        break
+      case 'getUserInfo:fail auth deny':
+        Taro.atMessage({
+          type: 'warning',
+          message: '无法获取您的微信用户信息。'
+        })
+        break
+    }
   }
 
   async userLogin() {
@@ -172,11 +183,23 @@ class UserAccount extends Component {
   }
 
   async wxUserBind() {
-    console.log('bind weixin user')
-
     try {
       const userInfo = await this.wxUserInfo()
-      console.log('userInfo', userInfo)
+
+      this.setState({
+        wxUserInfo: userInfo,
+        action: 'wxBind',
+        submitButtonText: '绑定微信用户'
+      })
+
+      Taro.setNavigationBarTitle({
+        title: '为现有用户绑定微信帐户'
+      })
+
+      Taro.atMessage({
+        type: 'info',
+        message: '输入应用的用户与密码并确认绑定。'
+      })
     } catch (error) {
       console.log(error.message)
     }
@@ -260,9 +283,8 @@ class UserAccount extends Component {
           className='mt-5'
         >{submitButtonText}</AtButton>
         <View className='mt-3 text-center text-muted'>
-          {action === 'login' && registerText}
-          {action === 'register' && loginText}
-          /
+          {registerText} /
+          {loginText} /
           {wxLoginText}
         </View>
         <AtActionSheet
